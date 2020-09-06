@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = "${mod_version}-${mod_phase}-${minecraft_version}"
+version = "${mod_version}-${mod_phase}"
 group = 'cloud.lemonslice.sliveroak'
 archivesBaseName = 'SliveroakOutpost'
 
@@ -73,7 +73,7 @@ minecraft {
 }
 
 def info = [
-        "Specification-Title": "sliveroakoutpost",
+        "Specification-Title": "SliveroakOutpost",
         "Specification-Vendor": "Lemon Slice Studio",
         "Specification-Version": "1",
         "Implementation-Title": project.name,
@@ -115,14 +115,54 @@ jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            artifact jar
+        release(MavenPublication) {
+            groupId = "cloud.lemonslice"
+            artifactId = "SilveroakOutpost-Forge-${minecraft_version}"
+
+            artifact reobfArtifact
+            pom {
+                name = 'Silveroak Outpost for Minecraft 1.16.2'
+                description = 'Minecraft mod library.'
+                url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost'
+                licenses {
+                    license {
+                        name = 'BSD-3-Clause'
+                        url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost/blob/1.16/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'RoitoLeo'
+                        name = 'RoitoLeo'
+                    }
+                }
+                issueManagement {
+                    system = 'GitHub Issues'
+                    url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost/issues'
+                }
+                scm {
+                    url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost'
+                    connection = 'scm:git:git://github.com/lemon-slice-studio/Silveroak-Outpost.git'
+                    developerConnection = 'scm:git:git@github.com:lemon-slice-studio/Silveroak-Outpost.git'
+                }
+            }
         }
     }
     repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            name = "archive"
+            url = "http://maven.lemonslice.cloud/releases"
+            credentials {
+                username = System.env.MAVEN_USERNAME
+                password = System.env.MAVEN_PASSWORD
+            }
         }
+    }
+}
+
+tasks.withType(PublishToMavenRepository) {
+    onlyIf {
+        System.env.MAVEN_USERNAME && System.env.MAVEN_PASSWORD
     }
 }
 
