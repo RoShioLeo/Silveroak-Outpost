@@ -120,7 +120,7 @@ def reobfArtifact = artifacts.add('default', reobfFile) {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = "cloud.lemonslice"
+            groupId = "cloud.lemonslice.silveroak"
             artifactId = "SilveroakOutpost-Forge-${minecraft_version}"
 
             artifact reobfArtifact
