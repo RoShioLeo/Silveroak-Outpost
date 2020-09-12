@@ -1,0 +1,15 @@
+{
+    "info.silveroak.environment.temperature.under_freezing": "Under Freezing",
+    "info.silveroak.environment.temperature.freezing": "Freezing",
+    "info.silveroak.environment.temperature.cold": "Cold",
+    "info.silveroak.environment.temperature.cool": "Cool",
+    "info.silveroak.environment.temperature.warm": "Warm",
+    "info.silveroak.environment.temperature.hot": "Hot",
+    "info.silveroak.environment.temperature.heat": "Heat",
+    "info.silveroak.environment.temperature.over_heat": "Over Heat",
+    "info.silveroak.environment.humidity.arid": "Arid",
+    "info.silveroak.environment.humidity.dry": "Dry",
+    "info.silveroak.environment.humidity.average": "Average",
+    "info.silveroak.environment.humidity.moist": "Moist",
+    "info.silveroak.environment.humidity.humid": "Humid"
+}

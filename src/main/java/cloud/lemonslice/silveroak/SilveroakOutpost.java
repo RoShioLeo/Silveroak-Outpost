@@ -1,5 +1,6 @@
 package cloud.lemonslice.silveroak;
 
+import cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,6 +26,7 @@ public class SilveroakOutpost
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
+        new SilveroakItemsRegistry();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

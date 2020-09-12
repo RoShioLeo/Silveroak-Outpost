@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[33,)"
+loaderVersion = "[31,)"
 license = "BSD-3-Clause License for Code"
 # issueTrackerURL="http://my.issue.tracker/" #optional
 [[mods]]
@@ -10,17 +10,17 @@ displayName = "Silveroak Outpost"
 # displayURL="http://example.com/"
 logoFile = "logo.png"
 credits = "Thanks for this example mod goes to Java"
-authors = "Love, Cheese and small house plants"
+authors = "Lemon Slice Studio"
 description = ''' '''
 [[dependencies.silveroakoutpost]]
 modId = "forge"
 mandatory = true
-versionRange = "[33,)"
+versionRange = "[31,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.silveroakoutpost]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.16.2]"
+versionRange = "[1.15.2]"
 ordering = "NONE"
 side = "BOTH"
