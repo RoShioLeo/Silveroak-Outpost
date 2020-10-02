@@ -13,8 +13,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = "${mod_version}-${mod_phase}"
-group = 'cloud.lemonslice.sliveroak'
-archivesBaseName = 'SliveroakOutpost'
+group = 'cloud.lemonslice.silveroak'
+archivesBaseName = 'SilveroakOutpost'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
@@ -34,7 +34,7 @@ minecraft {
             property 'forge.logging.console.level', 'info'
 
             mods {
-                sliveroakoutpost {
+                silveroakoutpost {
                     source sourceSets.main
                 }
             }
@@ -48,7 +48,7 @@ minecraft {
             property 'forge.logging.console.level', 'info'
 
             mods {
-                sliveroakoutpost {
+                silveroakoutpost {
                     source sourceSets.main
                 }
             }
@@ -61,10 +61,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'info'
 
-            args '--mod', 'sliveroakoutpost', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'silveroakoutpost', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                sliveroakoutpost {
+                silveroakoutpost {
                     source sourceSets.main
                 }
             }
@@ -73,7 +73,7 @@ minecraft {
 }
 
 def info = [
-        "Specification-Title": "SliveroakOutpost",
+        "Specification-Title": "SilveroakOutpost",
         "Specification-Vendor": "Lemon Slice Studio",
         "Specification-Version": "1",
         "Implementation-Title": project.name,
