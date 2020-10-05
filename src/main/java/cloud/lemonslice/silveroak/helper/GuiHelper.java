@@ -70,12 +70,12 @@ public final class GuiHelper
         }
     }
 
-    public static void drawTransparentStringDefault(FontRenderer font, String text, int x, int y, int color, boolean shadow)
+    public static void drawTransparentStringDefault(FontRenderer font, String text, float x, float y, int color, boolean shadow)
     {
         drawSpecialString(font, text, x, y, color, shadow, true, 0, 15728880);
     }
 
-    public static void drawSpecialString(FontRenderer font, String text, int x, int y, int color, boolean shadow, boolean transparent, int colorBackground, int packedLight)
+    public static void drawSpecialString(FontRenderer font, String text, float x, float y, int color, boolean shadow, boolean transparent, int colorBackground, int packedLight)
     {
         IRenderTypeBuffer.Impl irendertypebuffer$impl = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
         font.renderString(text, x, y, color, shadow, TransformationMatrix.identity().getMatrix(), irendertypebuffer$impl, transparent, colorBackground, packedLight);
