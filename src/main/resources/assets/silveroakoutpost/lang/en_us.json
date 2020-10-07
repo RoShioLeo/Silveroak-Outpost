@@ -1,4 +1,7 @@
 {
+    "item.silveroak.thermometer": "Thermometer",
+    "item.silveroak.rain_gauge": "Rain Gauge",
+    "item.silveroak.hygrometer": "Hygrometer",
     "info.silveroak.environment.temperature.under_freezing": "Under Freezing",
     "info.silveroak.environment.temperature.freezing": "Freezing",
     "info.silveroak.environment.temperature.cold": "Cold",
