@@ -1,7 +1,7 @@
 {
-    "item.silveroak.thermometer": "温度计",
-    "item.silveroak.rain_gauge": "雨量计",
-    "item.silveroak.hygrometer": "湿度计",
+    "item.silveroakoutpost.thermometer": "温度计",
+    "item.silveroakoutpost.rain_gauge": "雨量计",
+    "item.silveroakoutpost.hygrometer": "湿度计",
     "info.silveroak.environment.temperature.under_freezing": "严寒",
     "info.silveroak.environment.temperature.freezing": "冰冻",
     "info.silveroak.environment.temperature.cold": "寒冷",
