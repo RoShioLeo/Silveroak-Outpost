@@ -82,18 +82,6 @@ def info = [
         "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 ]
 
-task deobfJar(type: Jar) {
-    manifest {
-        attributes(info)
-    }
-    from(sourceSets.main.output)
-    archiveName = "${archivesBaseName}-${version}-deobf.${extension}"
-}
-
-artifacts {
-    archives deobfJar
-}
-
 repositories {
     maven {
         url 'https://www.dogforce-games.com/maven/'
@@ -125,7 +113,7 @@ publishing {
 
             artifact reobfArtifact
             pom {
-                name = 'Silveroak Outpost for Minecraft 1.16.2'
+                name = 'Silveroak Outpost for Minecraft 1.16.5'
                 description = 'Minecraft mod library.'
                 url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost'
                 licenses {

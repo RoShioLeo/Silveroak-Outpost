@@ -9,9 +9,9 @@ displayName = "Silveroak Outpost"
 # updateJSONURL="http://myurl.me/"
 # displayURL="http://example.com/"
 logoFile = "logo.png"
-credits = "Thanks for this example mod goes to Java"
-authors = "Love, Cheese and small house plants"
-description = ''' '''
+credits = "Lemon Slice Studio"
+authors = "RoitoLeo, MalayP"
+description = '''This is a simple library that provides environment framework like temperature, rainfall, and humidity, also other development tools.'''
 [[dependencies.silveroakoutpost]]
 modId = "forge"
 mandatory = true
@@ -21,6 +21,6 @@ side = "BOTH"
 [[dependencies.silveroakoutpost]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.16.2]"
+versionRange = "[1.16.2,1.17)"
 ordering = "NONE"
 side = "BOTH"
