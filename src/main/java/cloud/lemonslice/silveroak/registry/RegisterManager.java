@@ -37,7 +37,7 @@ public final class RegisterManager
         ITEMS.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(ITEMS.get(id).toArray(new Item[0]));
-            SilveroakOutpost.info("Successfully registered %d Item(s) for Mod %s.", ITEMS.size(), id);
+            SilveroakOutpost.info("Successfully registered %d Item(s) for Mod %s.", ITEMS.get(id).size(), id);
         });
     }
 
@@ -47,7 +47,7 @@ public final class RegisterManager
         BLOCKS.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(BLOCKS.get(id).toArray(new Block[0]));
-            SilveroakOutpost.info("Successfully registered %d Block(s) for Mod %s.", BLOCKS.size(), id);
+            SilveroakOutpost.info("Successfully registered %d Block(s) for Mod %s.", BLOCKS.get(id).size(), id);
         });
     }
 
@@ -57,7 +57,7 @@ public final class RegisterManager
         TILE_ENTITY_TYPES.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(TILE_ENTITY_TYPES.get(id).toArray(new TileEntityType<?>[0]));
-            SilveroakOutpost.info("Successfully registered %d TileEntity Type(s) for Mod %s.", TILE_ENTITY_TYPES.size(), id);
+            SilveroakOutpost.info("Successfully registered %d TileEntity Type(s) for Mod %s.", TILE_ENTITY_TYPES.get(id).size(), id);
         });
     }
 
@@ -67,7 +67,7 @@ public final class RegisterManager
         ENTITY_TYPES.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(ENTITY_TYPES.get(id).toArray(new EntityType<?>[0]));
-            SilveroakOutpost.info("Successfully registered %d Entity Type(s) for Mod %s.", ENTITY_TYPES.size(), id);
+            SilveroakOutpost.info("Successfully registered %d Entity Type(s) for Mod %s.", ENTITY_TYPES.get(id).size(), id);
         });
     }
 
@@ -77,7 +77,7 @@ public final class RegisterManager
         EFFECTS.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(EFFECTS.get(id).toArray(new Effect[0]));
-            SilveroakOutpost.info("Successfully registered %d Effect(s) for Mod %s.", EFFECTS.size(), id);
+            SilveroakOutpost.info("Successfully registered %d Effect(s) for Mod %s.", EFFECTS.get(id).size(), id);
         });
     }
 
@@ -87,7 +87,7 @@ public final class RegisterManager
         CONTAINER_TYPES.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(CONTAINER_TYPES.get(id).toArray(new ContainerType<?>[0]));
-            SilveroakOutpost.info("Successfully registered %d Container Type(s) for Mod %s.", CONTAINER_TYPES.size(), id);
+            SilveroakOutpost.info("Successfully registered %d Container Type(s) for Mod %s.", CONTAINER_TYPES.get(id).size(), id);
         });
     }
 
@@ -97,7 +97,7 @@ public final class RegisterManager
         FEATURES.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(FEATURES.get(id).toArray(new Feature<?>[0]));
-            SilveroakOutpost.info("Successfully registered %d Feature(s) for Mod %s.", FEATURES.size(), id);
+            SilveroakOutpost.info("Successfully registered %d Feature(s) for Mod %s.", FEATURES.get(id).size(), id);
         });
     }
 
@@ -107,7 +107,7 @@ public final class RegisterManager
         SOUNDS.keySet().forEach(id ->
         {
             event.getRegistry().registerAll(SOUNDS.get(id).toArray(new SoundEvent[0]));
-            SilveroakOutpost.info("Successfully registered %d Sound(s) for Mod %s.", SOUNDS.size(), id);
+            SilveroakOutpost.info("Successfully registered %d Sound(s) for Mod %s.", SOUNDS.get(id).size(), id);
         });
     }
 

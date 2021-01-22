@@ -6,13 +6,16 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.util.math.vector.TransformationMatrix;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -25,6 +28,12 @@ import java.util.List;
 
 public final class GuiHelper
 {
+    public static void drawLayer(int x, int y, TextureResource texture)
+    {
+        Minecraft.getInstance().getTextureManager().bindTexture(texture.getTexture());
+        GuiUtils.drawTexturedModalRect(x, y, texture.getPos().getX(), texture.getPos().getY(), texture.getPos().getWidth(), texture.getPos().getHeight(), 0);
+    }
+
     public static void drawTank(Screen gui, TexturePos pos, FluidStack fluid, int fluidHeight)
     {
         int width = pos.getWidth();
@@ -68,17 +77,22 @@ public final class GuiHelper
         }
     }
 
-    public static void drawLayer(Screen gui, int x, int y, TextureResource texture)
+    public static void drawTransparentStringDefault(FontRenderer font, String text, float x, float y, int color, boolean shadow)
     {
-        Minecraft.getInstance().getTextureManager().bindTexture(texture.getTexture());
-        GuiUtils.drawTexturedModalRect(x, y, texture.getPos().getX(), texture.getPos().getY(), texture.getPos().getWidth(), texture.getPos().getHeight(), 0);
+        drawSpecialString(font, text, x, y, color, shadow, true, 0, 15728880);
+    }
+
+    public static void drawSpecialString(FontRenderer font, String text, float x, float y, int color, boolean shadow, boolean transparent, int colorBackground, int packedLight)
+    {
+        IRenderTypeBuffer.Impl irendertypebuffer$impl = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
+        font.renderString(text, x, y, color, shadow, TransformationMatrix.identity().getMatrix(), irendertypebuffer$impl, transparent, colorBackground, packedLight);
+        irendertypebuffer$impl.finish();
     }
 
     public static void drawTooltip(Screen gui, MatrixStack matrix, int mouseX, int mouseY, int x, int y, int weight, int height, List<ITextComponent> list)
     {
         if (x <= mouseX && mouseX <= x + weight && y <= mouseY && mouseY <= y + height)
         {
-            // renderToolTip(matrix, list, mouseX, mouseY);
             gui.func_243308_b(matrix, list, mouseX, mouseY);
         }
     }
@@ -89,7 +103,7 @@ public final class GuiHelper
         {
             List<ITextComponent> list = Lists.newArrayList(name);
             DecimalFormat df = new DecimalFormat("#,###");
-            list.add(new StringTextComponent(df.format(amount) + "mB").mergeStyle(TextFormatting.GRAY));
+            list.add(new StringTextComponent(TextFormatting.GRAY.toString() + df.format(amount) + " mB"));
             drawTooltip(gui, matrix, mouseX, mouseY, x, y, width, height, list);
         }
     }

@@ -22,4 +22,9 @@ public class TextureResource
     {
         return pos;
     }
+
+    public void setPos(TexturePos newPos)
+    {
+        pos = newPos;
+    }
 }

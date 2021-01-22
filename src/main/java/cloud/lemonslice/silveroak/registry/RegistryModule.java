@@ -1,5 +1,6 @@
 package cloud.lemonslice.silveroak.registry;
 
+import cloud.lemonslice.silveroak.SilveroakOutpost;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -18,9 +19,9 @@ public class RegistryModule
     public RegistryModule(String modid)
     {
         RegisterManager.MODID.add(modid);
-        for (Field field : getClass().getFields())
+        try
         {
-            try
+            for (Field field : getClass().getFields())
             {
                 Object o = field.get(null);
                 if (o instanceof Item)
@@ -72,9 +73,10 @@ public class RegistryModule
                     RegisterManager.SOUNDS.put(modid, list);
                 }
             }
-            catch (Exception ignored)
-            {
-            }
+        }
+        catch (Exception ignored)
+        {
+            SilveroakOutpost.error("An error occurred while initializing registry in Mod %s.", modid);
         }
     }
 }
