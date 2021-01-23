@@ -41,7 +41,6 @@ public class SilveroakOutpost
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
         new SilveroakItemsRegistry();
-        LIST.add("barter");
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -83,5 +82,10 @@ public class SilveroakOutpost
     public static void info(String format, Object... data)
     {
         SilveroakOutpost.LOGGER.log(Level.INFO, String.format(format, data));
+    }
+
+    public static void addAlphaTestMod(String modid)
+    {
+        LIST.add(modid);
     }
 }
