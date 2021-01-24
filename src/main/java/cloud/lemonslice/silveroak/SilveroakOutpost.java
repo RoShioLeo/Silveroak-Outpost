@@ -3,7 +3,6 @@ package cloud.lemonslice.silveroak;
 import cloud.lemonslice.silveroak.common.config.NormalConfigs;
 import cloud.lemonslice.silveroak.common.config.ServerConfig;
 import cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry;
-import com.google.common.collect.Lists;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -21,8 +20,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
 import static cloud.lemonslice.silveroak.registry.RegisterManager.clearAll;
 
 @Mod("silveroakoutpost")
@@ -32,7 +29,7 @@ public class SilveroakOutpost
 
     public static final String MODID = "silveroakoutpost";
 
-    private static final List<String> LIST = Lists.newArrayList();
+    private static boolean verification = false;
 
     public SilveroakOutpost()
     {
@@ -56,15 +53,9 @@ public class SilveroakOutpost
     @SubscribeEvent
     public void onServerStarting(FMLServerStartedEvent event)
     {
-        for (String modid : LIST)
+        if (verification && !DigestUtils.sha1Hex(ServerConfig.Verification.password.get()).equals("56af65c4b29038deecf2e161bc2c4293ccee703d"))
         {
-            ModList.get().getModContainerById(modid).ifPresent(modContainer ->
-            {
-                if (modContainer.getModInfo().getVersion().toString().contains("Alpha") && !DigestUtils.sha1Hex(ServerConfig.Verification.password.get()).equals("56af65c4b29038deecf2e161bc2c4293ccee703d"))
-                {
-                    throw new ModLoadingException(modContainer.getModInfo(), ModLoadingStage.DONE, "info.silveroak.loading.alpha", new Exception());
-                }
-            });
+            throw new ModLoadingException(ModList.get().getModContainerById("silveroakoutpost").get().getModInfo(), ModLoadingStage.DONE, "info.silveroak.loading.alpha", new Exception());
         }
         info("Password was verified successfully!");
     }
@@ -84,8 +75,8 @@ public class SilveroakOutpost
         SilveroakOutpost.LOGGER.log(Level.INFO, String.format(format, data));
     }
 
-    public static void addAlphaTestMod(String modid)
+    public static void needVerification()
     {
-        LIST.add(modid);
+        verification = true;
     }
 }

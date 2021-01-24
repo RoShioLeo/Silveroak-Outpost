@@ -1,8 +1,8 @@
 package cloud.lemonslice.silveroak.client.gui.hud;
 
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
-import cloud.lemonslice.silveroak.client.texture.TextureResource;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -27,14 +27,13 @@ public class RainGaugeBarRenderer extends AbstractGui
     private static float level = 0;
 
     private final Minecraft mc;
-    private final static TextureResource texture = new TextureResource(OVERLAY_BAR, new TexturePos(1, 20, 0, 0));
 
     public RainGaugeBarRenderer(Minecraft mc)
     {
         this.mc = mc;
     }
 
-    public void renderStatusBar(int screenWidth, int screenHeight, float rainfall)
+    public void renderStatusBar(MatrixStack matrixStack, int screenWidth, int screenHeight, float rainfall)
     {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableAlphaTest();
@@ -47,10 +46,8 @@ public class RainGaugeBarRenderer extends AbstractGui
         int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
         int width = getWidth(RainGaugeBarRenderer.rainfall);
-        texture.setPos(new TexturePos(1, 0, width, HEIGHT - 2));
-        GuiHelper.drawLayer(offsetX + 1, offsetY + 1, texture);
-        texture.setPos(new TexturePos(0, 4, WIDTH, HEIGHT));
-        GuiHelper.drawLayer(offsetX, offsetY, texture);
+        GuiHelper.drawLayer(matrixStack, offsetX + 1, offsetY + 1, OVERLAY_BAR, new TexturePos(1, 0, width, HEIGHT - 2));
+        GuiHelper.drawLayer(matrixStack, offsetX, offsetY, new TexturePos(0, 4, WIDTH, HEIGHT));
 
         RenderSystem.enableBlend();
         RenderSystem.disableAlphaTest();

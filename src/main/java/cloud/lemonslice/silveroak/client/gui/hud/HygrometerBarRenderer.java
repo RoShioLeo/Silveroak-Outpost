@@ -1,9 +1,9 @@
 package cloud.lemonslice.silveroak.client.gui.hud;
 
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
-import cloud.lemonslice.silveroak.client.texture.TextureResource;
 import cloud.lemonslice.silveroak.common.environment.Humidity;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -28,14 +28,13 @@ public class HygrometerBarRenderer extends AbstractGui
     private static int level = 0;
 
     private final Minecraft mc;
-    private final static TextureResource texture = new TextureResource(OVERLAY_BAR, new TexturePos(1, 20, 0, 0));
 
     public HygrometerBarRenderer(Minecraft mc)
     {
         this.mc = mc;
     }
 
-    public void renderStatusBar(int screenWidth, int screenHeight, float temperature, float rainfall)
+    public void renderStatusBar(MatrixStack matrixStack, int screenWidth, int screenHeight, float temperature, float rainfall)
     {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableAlphaTest();
@@ -47,10 +46,8 @@ public class HygrometerBarRenderer extends AbstractGui
         int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
         int width = (int) (humidity * 6);
-        texture.setPos(new TexturePos(1, 20, width, HEIGHT - 2));
-        GuiHelper.drawLayer(offsetX + 1, offsetY + 1, texture);
-        texture.setPos(new TexturePos(0, 24, WIDTH, HEIGHT));
-        GuiHelper.drawLayer(offsetX, offsetY, texture);
+        GuiHelper.drawLayer(matrixStack, offsetX + 1, offsetY + 1, OVERLAY_BAR, new TexturePos(1, 20, width, HEIGHT - 2));
+        GuiHelper.drawLayer(matrixStack, offsetX, offsetY, new TexturePos(0, 24, WIDTH, HEIGHT));
 
         RenderSystem.enableBlend();
         RenderSystem.disableAlphaTest();

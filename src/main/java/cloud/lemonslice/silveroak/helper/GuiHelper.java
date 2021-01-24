@@ -1,7 +1,6 @@
 package cloud.lemonslice.silveroak.helper;
 
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
-import cloud.lemonslice.silveroak.client.texture.TextureResource;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -15,6 +14,7 @@ import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.TransformationMatrix;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -28,10 +28,15 @@ import java.util.List;
 
 public final class GuiHelper
 {
-    public static void drawLayer(int x, int y, TextureResource texture)
+    public static void drawLayer(MatrixStack matrixStack, int x, int y, ResourceLocation texture, TexturePos pos)
     {
-        Minecraft.getInstance().getTextureManager().bindTexture(texture.getTexture());
-        GuiUtils.drawTexturedModalRect(x, y, texture.getPos().getX(), texture.getPos().getY(), texture.getPos().getWidth(), texture.getPos().getHeight(), 0);
+        Minecraft.getInstance().getTextureManager().bindTexture(texture);
+        GuiUtils.drawTexturedModalRect(matrixStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), 0);
+    }
+
+    public static void drawLayer(MatrixStack matrixStack, int x, int y, TexturePos pos)
+    {
+        GuiUtils.drawTexturedModalRect(matrixStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), 0);
     }
 
     public static void drawTank(Screen gui, TexturePos pos, FluidStack fluid, int fluidHeight)
