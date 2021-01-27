@@ -1,12 +1,14 @@
 package cloud.lemonslice.silveroak.helper;
 
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
+import cloud.lemonslice.silveroak.client.widget.IconButton;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
@@ -37,6 +39,35 @@ public final class GuiHelper
     public static void drawLayer(MatrixStack matrixStack, int x, int y, TexturePos pos)
     {
         GuiUtils.drawTexturedModalRect(matrixStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), 0);
+    }
+
+    public static void renderIconButton(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY, ResourceLocation texture, IconButton button, TexturePos normalPos, TexturePos hoveredPos, TexturePos pressedPos)
+    {
+        button.render(matrixStack, mouseX, mouseY, partialTicks);
+        if (button.isPressed())
+        {
+            GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, pressedPos);
+            return;
+        }
+        else if (button.isHovered())
+        {
+            GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, hoveredPos);
+            return;
+        }
+        GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, normalPos);
+    }
+
+    public static void renderButton(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
+    {
+        button.render(matrixStack, mouseX, mouseY, partialTicks);
+        if (button.isHovered())
+        {
+            GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, hoveredPos);
+        }
+        else
+        {
+            GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, normalPos);
+        }
     }
 
     public static void drawTank(Screen gui, TexturePos pos, FluidStack fluid, int fluidHeight)
