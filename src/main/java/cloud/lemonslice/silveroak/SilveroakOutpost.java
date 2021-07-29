@@ -53,11 +53,17 @@ public class SilveroakOutpost
     @SubscribeEvent
     public void onServerStarting(FMLServerStartedEvent event)
     {
-        if (verification && !DigestUtils.sha1Hex(ServerConfig.Verification.password.get()).equals("56af65c4b29038deecf2e161bc2c4293ccee703d"))
+        if (verification)
         {
-            throw new ModLoadingException(ModList.get().getModContainerById("silveroakoutpost").get().getModInfo(), ModLoadingStage.DONE, "info.silveroak.loading.alpha", new Exception());
+            if (!DigestUtils.sha1Hex(ServerConfig.Verification.password.get()).equals("56af65c4b29038deecf2e161bc2c4293ccee703d"))
+            {
+                throw new ModLoadingException(ModList.get().getModContainerById("silveroakoutpost").get().getModInfo(), ModLoadingStage.DONE, "info.silveroak.loading.alpha", new Exception());
+            }
+            else
+            {
+                info("Password was verified successfully!");
+            }
         }
-        info("Password was verified successfully!");
     }
 
     public static void error(String format, Object... data)

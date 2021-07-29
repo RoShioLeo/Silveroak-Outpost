@@ -46,12 +46,16 @@ public final class GuiHelper
         button.render(matrixStack, mouseX, mouseY, partialTicks);
         if (button.isPressed())
         {
+            RenderSystem.enableAlphaTest();
             GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, pressedPos);
+            RenderSystem.disableAlphaTest();
             return;
         }
         else if (button.isHovered())
         {
+            RenderSystem.enableAlphaTest();
             GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, hoveredPos);
+            RenderSystem.disableAlphaTest();
             return;
         }
         GuiHelper.drawLayer(matrixStack, button.x, button.y, texture, normalPos);
