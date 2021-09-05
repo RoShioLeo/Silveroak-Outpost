@@ -421,37 +421,34 @@ public class EditableTextBox extends Widget
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button)
     {
-        if (!super.mouseClicked(mouseX, mouseY, button))
+        if (button == 0)
         {
-            if (button == 0)
+            long i = Util.milliTime();
+            int j = getPage().getMousePointPosInText(this.font, this.getPointPosInBox(new Point((int) mouseX, (int) mouseY)), spacing);
+            if (j >= 0)
             {
-                long i = Util.milliTime();
-                int j = getPage().getMousePointPosInText(this.font, this.getPointPosInBox(new Point((int) mouseX, (int) mouseY)), spacing);
-                if (j >= 0)
+                if (i - this.lastClickTime < 250L)
                 {
-                    if (i - this.lastClickTime < 250L)
+                    if (!this.textInputUtil.hasSelection())
                     {
-                        if (!this.textInputUtil.hasSelection())
-                        {
-                            this.setSelection(j);
-                        }
-                        else
-                        {
-                            this.textInputUtil.selectAll();
-                        }
+                        this.setSelection(j);
                     }
                     else
                     {
-                        this.textInputUtil.moveCursorTo(j, Screen.hasShiftDown());
+                        this.textInputUtil.selectAll();
                     }
-
-                    this.shouldRefresh();
+                }
+                else
+                {
+                    this.textInputUtil.moveCursorTo(j, Screen.hasShiftDown());
                 }
 
-                this.lastClickTime = i;
+                this.shouldRefresh();
             }
 
+            this.lastClickTime = i;
         }
+
         return true;
     }
 
