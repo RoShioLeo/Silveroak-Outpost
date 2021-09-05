@@ -20,6 +20,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SharedConstants;
@@ -66,7 +68,18 @@ public class EditableTextBox extends Widget
         this.item = item;
         this.editingPlayer = playerIn;
         this.hand = handIn;
-        this.textInputUtil = new TextInputUtil(() -> page, this::setText, this::getClipboardText, this::setClipboardText, (text) -> text.length() < 1024 && this.font.getWordWrappedHeight(text, boxWidth) <= boxHeight / font.FONT_HEIGHT * spacingPixel);
+
+        CompoundNBT compoundnbt = item.getTag();
+        if (compoundnbt != null)
+        {
+            INBT nbt = compoundnbt.get("Text");
+            if (nbt != null)
+            {
+                this.page = nbt.copy().getString();
+            }
+        }
+
+        this.textInputUtil = new TextInputUtil(() -> page, this::setText, this::getClipboardText, this::setClipboardText, (text) -> text.length() < 1024 && this.font.getWordWrappedHeight(text, boxWidth) <= boxHeight * font.FONT_HEIGHT / spacingPixel);
     }
 
     // Please link to Screen

@@ -38,13 +38,13 @@ public class SilveroakOutpost
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
-        SimpleNetworkHandler.init();
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         clearAll();
+        SimpleNetworkHandler.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
