@@ -2,7 +2,6 @@ package cloud.lemonslice.silveroak;
 
 import cloud.lemonslice.silveroak.common.config.NormalConfigs;
 import cloud.lemonslice.silveroak.common.config.ServerConfig;
-import cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -20,6 +19,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry.ITEM_REGISTER;
 import static cloud.lemonslice.silveroak.registry.RegisterManager.clearAll;
 
 @Mod("silveroakoutpost")
@@ -37,7 +37,7 @@ public class SilveroakOutpost
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
-        new SilveroakItemsRegistry();
+        ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

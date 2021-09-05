@@ -46,7 +46,8 @@ public class HygrometerBarRenderer extends AbstractGui
         int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
         int width = (int) (humidity * 6);
-        GuiHelper.drawLayer(matrixStack, offsetX + 1, offsetY + 1, OVERLAY_BAR, new TexturePos(1, 20, width, HEIGHT - 2));
+        mc.getTextureManager().bindTexture(OVERLAY_BAR);
+        GuiHelper.drawLayer(matrixStack, offsetX + 1, offsetY + 1, new TexturePos(1, 20, width, HEIGHT - 2));
         GuiHelper.drawLayer(matrixStack, offsetX, offsetY, new TexturePos(0, 24, WIDTH, HEIGHT));
 
         RenderSystem.enableBlend();

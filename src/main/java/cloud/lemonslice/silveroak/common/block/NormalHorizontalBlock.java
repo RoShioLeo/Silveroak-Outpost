@@ -8,7 +8,14 @@ import net.minecraft.state.StateContainer;
 
 public class NormalHorizontalBlock extends HorizontalBlock
 {
-    protected NormalHorizontalBlock(Properties properties, String name)
+    public NormalHorizontalBlock(Properties properties)
+    {
+        super(properties);
+    }
+
+    @Deprecated
+    // Please use DeferredRegister rather than RegistryModule
+    public NormalHorizontalBlock(Properties properties, String name)
     {
         super(properties);
         this.setRegistryName(name);

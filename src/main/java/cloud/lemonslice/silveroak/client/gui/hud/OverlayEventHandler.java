@@ -36,16 +36,16 @@ public final class OverlayEventHandler
                 {
                     Item handed = clientPlayer.getHeldItemMainhand().getItem();
                     Biome biome = clientPlayer.getEntityWorld().getBiome(clientPlayer.getPosition());
-                    if (originThermometerBar && handed.equals(SilveroakItemsRegistry.THERMOMETER))
+                    if (originThermometerBar && handed.equals(SilveroakItemsRegistry.THERMOMETER.get()))
                     {
                         float temp = biome.getTemperature(clientPlayer.getPosition());
                         BAR_0.renderStatusBar(event.getMatrixStack(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), temp);
                     }
-                    else if (handed.equals(SilveroakItemsRegistry.RAIN_GAUGE))
+                    else if (handed.equals(SilveroakItemsRegistry.RAIN_GAUGE.get()))
                     {
                         BAR_1.renderStatusBar(event.getMatrixStack(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), biome.getDownfall());
                     }
-                    else if (handed.equals(SilveroakItemsRegistry.HYGROMETER))
+                    else if (handed.equals(SilveroakItemsRegistry.HYGROMETER.get()))
                     {
                         BAR_2.renderStatusBar(event.getMatrixStack(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), biome.getTemperature(clientPlayer.getPosition()), biome.getDownfall());
                     }

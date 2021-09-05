@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.Feature;
 import java.lang.reflect.Field;
 import java.util.List;
 
+@Deprecated
 public class RegistryModule
 {
     public RegistryModule(String modid)
