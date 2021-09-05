@@ -372,8 +372,6 @@ public class EditableTextBox extends Widget
 
         this.renderSelection(page.selection);
         this.renderCursor(matrixStack, page.point, page.isInsert);
-
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     private void renderSelection(Rectangle2d[] selection)

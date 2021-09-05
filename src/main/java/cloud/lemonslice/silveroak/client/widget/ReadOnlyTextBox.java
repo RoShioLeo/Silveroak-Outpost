@@ -96,7 +96,5 @@ public class ReadOnlyTextBox extends Widget
         {
             this.font.drawText(matrixStack, line.lineTextComponent, (float) line.x, (float) line.y, color);
         }
-
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 }
