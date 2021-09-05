@@ -2,6 +2,7 @@ package cloud.lemonslice.silveroak;
 
 import cloud.lemonslice.silveroak.common.config.NormalConfigs;
 import cloud.lemonslice.silveroak.common.config.ServerConfig;
+import cloud.lemonslice.silveroak.network.SimpleNetworkHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -37,6 +38,7 @@ public class SilveroakOutpost
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
+        SimpleNetworkHandler.init();
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
