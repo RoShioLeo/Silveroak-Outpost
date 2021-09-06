@@ -21,7 +21,8 @@ public class IconButton extends Button
         super(x, y, width, height, title, pressedAction, onTooltip);
     }
 
-    public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    @Override
+    public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
     {
         if (this.isHovered())
         {
