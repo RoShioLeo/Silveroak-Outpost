@@ -229,7 +229,7 @@ public class EditableTextBox extends Widget
         TextInputUtil.setClipboardText(this.mc, text);
     }
 
-    private void shouldRefresh()
+    public void shouldRefresh()
     {
         this.currentPage = null;
     }
