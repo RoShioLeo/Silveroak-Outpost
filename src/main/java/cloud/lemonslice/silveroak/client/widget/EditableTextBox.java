@@ -468,15 +468,11 @@ public class EditableTextBox extends Widget
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY)
     {
-        if (!super.mouseDragged(mouseX, mouseY, button, dragX, dragY))
+        if (button == 0)
         {
-            if (button == 0)
-            {
-                int i = getPage().getMousePointPosInText(this.font, this.getPointPosInBox(new Point((int) mouseX, (int) mouseY)), spacing);
-                this.textInputUtil.moveCursorTo(i, true);
-                this.shouldRefresh();
-            }
-
+            int i = getPage().getMousePointPosInText(this.font, this.getPointPosInBox(new Point((int) mouseX, (int) mouseY)), spacing);
+            this.textInputUtil.moveCursorTo(i, true);
+            this.shouldRefresh();
         }
         return true;
     }
