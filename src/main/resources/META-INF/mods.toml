@@ -1,0 +1,26 @@
+modLoader = "javafml"
+loaderVersion = "[38,)"
+license = "BSD-3-Clause License for Code"
+# issueTrackerURL="http://my.issue.tracker/" #optional
+[[mods]]
+modId = "silveroakoutpost"
+version = "${file.jarVersion}"
+displayName = "Silveroak Outpost"
+# updateJSONURL="http://myurl.me/"
+# displayURL="http://example.com/"
+logoFile = "logo.png"
+credits = "Lemon Slice Studio"
+authors = "RoitoLeo, MalayP"
+description = '''This is a simple library that provides environment framework like temperature, rainfall, and humidity, also other development tools.'''
+[[dependencies.silveroakoutpost]]
+modId = "forge"
+mandatory = true
+versionRange = "[38,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.silveroakoutpost]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18,1.19)"
+ordering = "NONE"
+side = "BOTH"
