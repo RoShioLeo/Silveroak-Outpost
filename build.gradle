@@ -163,7 +163,7 @@ publishing {
     repositories {
         maven {
             name = "archive"
-            url = "http://maven.lemonslice.cloud/releases"
+            url = "https://maven.lemonslice.cloud/releases"
             credentials {
                 username = System.env.MAVEN_USERNAME
                 password = System.env.MAVEN_PASSWORD
