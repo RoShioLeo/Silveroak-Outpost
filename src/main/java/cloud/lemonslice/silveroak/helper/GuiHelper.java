@@ -10,7 +10,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.math.Transformation;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
@@ -51,7 +50,7 @@ public final class GuiHelper
         button.render(poseStack, mouseX, mouseY, partialTicks);
 
         RenderSystem.enableBlend();
-        Minecraft.getInstance().getTextureManager().bindForSetup(texture);
+        RenderSystem.setShaderTexture(0, texture);
         if (button.isPressed())
         {
             GuiHelper.drawLayer(poseStack, button.x, button.y, pressedPos);
@@ -74,7 +73,7 @@ public final class GuiHelper
         button.render(poseStack, mouseX, mouseY, partialTicks);
 
         RenderSystem.enableBlend();
-        Minecraft.getInstance().getTextureManager().bindForSetup(texture);
+        RenderSystem.setShaderTexture(0, texture);
 
         if (button.m_198029_())
         {
@@ -99,7 +98,7 @@ public final class GuiHelper
         if (fluidHeight != 0)
         {
             TextureAtlasSprite sprite = gui.getMinecraft().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluid.getFluid().getAttributes().getStillTexture());
-            gui.getMinecraft().getTextureManager().bindForSetup(InventoryMenu.BLOCK_ATLAS);
+            RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
             int color = fluid.getFluid().getAttributes().getColor(fluid);
             RenderSystem.setShaderColor(ColorHelper.getRedF(color), ColorHelper.getGreenF(color), ColorHelper.getBlueF(color), ColorHelper.getAlphaF(color));
             for (int j = 0; j < width / 16; j++)
