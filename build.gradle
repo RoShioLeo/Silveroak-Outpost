@@ -101,6 +101,17 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 }
 
+def version_replaces = [
+        'version': project.version
+]
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+    filesMatching("META-INF/mods.toml") {
+        expand version_replaces
+    }
+}
+
 def info = [
         "Specification-Title": "SliveroakOutpost",
         "Specification-Vendor": "Lemon Slice Studio",
