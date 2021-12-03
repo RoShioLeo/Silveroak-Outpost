@@ -26,7 +26,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import static com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS;
 
@@ -161,7 +161,7 @@ public final class GuiHelper
     {
         if (x <= mouseX && mouseX <= x + weight && y <= mouseY && mouseY <= y + height)
         {
-            gui.renderTooltip(matrix, list.stream().map(Component::getVisualOrderText).collect(Collectors.toList()), mouseX, mouseY);
+            gui.renderTooltip(matrix, list, Optional.empty(), mouseX, mouseY);
         }
     }
 
