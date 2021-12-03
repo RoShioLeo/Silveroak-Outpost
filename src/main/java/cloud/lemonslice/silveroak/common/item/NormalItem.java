@@ -12,11 +12,6 @@ public class NormalItem extends Item
 
     public NormalItem(CreativeModeTab group)
     {
-        super(getNormalItemProperties(group));
-    }
-
-    public static Properties getNormalItemProperties(CreativeModeTab group)
-    {
-        return new Properties().tab(group);
+        super(new Properties().tab(group));
     }
 }

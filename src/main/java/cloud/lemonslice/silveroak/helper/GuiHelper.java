@@ -81,7 +81,7 @@ public final class GuiHelper
         button.render(poseStack, mouseX, mouseY, partialTicks);
     }
 
-    public static void renderButton(Screen gui, PoseStack poseStack, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
+    public static void renderButton(PoseStack poseStack, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
     {
         RenderSystem.enableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -89,11 +89,11 @@ public final class GuiHelper
 
         if (button.m_198029_())
         {
-            GuiHelper.drawLayer(gui, poseStack, button.x, button.y, hoveredPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
         }
         else
         {
-            GuiHelper.drawLayer(gui, poseStack, button.x, button.y, normalPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos);
         }
         RenderSystem.disableBlend();
 
