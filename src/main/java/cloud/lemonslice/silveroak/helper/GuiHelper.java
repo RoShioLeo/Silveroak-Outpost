@@ -57,34 +57,32 @@ public final class GuiHelper
         drawLayerBySize(poseStack, x, y, pos, pos.getWidth(), pos.getHeight());
     }
 
-    public static void renderIconButton(Screen gui, PoseStack poseStack, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, IconButton button, TexturePos normalPos, TexturePos hoveredPos, TexturePos pressedPos)
+    public static void renderIconButton(PoseStack poseStack, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, IconButton button, TexturePos normalPos, TexturePos hoveredPos, TexturePos pressedPos)
     {
-        button.render(poseStack, mouseX, mouseY, partialTicks);
-
         RenderSystem.enableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         if (button.isPressed())
         {
-            GuiHelper.drawLayer(gui, poseStack, button.x, button.y, pressedPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, pressedPos);
             RenderSystem.disableBlend();
             return;
         }
         else if (button.m_198029_())
         {
-            GuiHelper.drawLayer(gui, poseStack, button.x, button.y, hoveredPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
             RenderSystem.disableBlend();
             return;
         }
 
-        GuiHelper.drawLayer(gui, poseStack, button.x, button.y, normalPos);
+        GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos);
         RenderSystem.disableBlend();
+
+        button.render(poseStack, mouseX, mouseY, partialTicks);
     }
 
     public static void renderButton(Screen gui, PoseStack poseStack, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
     {
-        button.render(poseStack, mouseX, mouseY, partialTicks);
-
         RenderSystem.enableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
@@ -97,8 +95,9 @@ public final class GuiHelper
         {
             GuiHelper.drawLayer(gui, poseStack, button.x, button.y, normalPos);
         }
-
         RenderSystem.disableBlend();
+
+        button.render(poseStack, mouseX, mouseY, partialTicks);
     }
 
     public static void drawTank(Screen gui, TexturePos pos, FluidStack fluid, int fluidHeight)
