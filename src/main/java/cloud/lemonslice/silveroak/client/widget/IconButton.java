@@ -26,7 +26,10 @@ public class IconButton extends Button
     {
         if (this.m_198029_())
         {
+            poseStack.pushPose();
+            poseStack.translate(0, 0, 500);
             this.renderToolTip(poseStack, mouseX, mouseY);
+            poseStack.popPose();
         }
     }
 
