@@ -14,6 +14,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
@@ -50,6 +51,7 @@ public final class GuiHelper
         button.render(poseStack, mouseX, mouseY, partialTicks);
 
         RenderSystem.enableBlend();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         if (button.isPressed())
         {
@@ -73,6 +75,7 @@ public final class GuiHelper
         button.render(poseStack, mouseX, mouseY, partialTicks);
 
         RenderSystem.enableBlend();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
 
         if (button.m_198029_())
@@ -98,6 +101,7 @@ public final class GuiHelper
         if (fluidHeight != 0)
         {
             TextureAtlasSprite sprite = gui.getMinecraft().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluid.getFluid().getAttributes().getStillTexture());
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
             int color = fluid.getFluid().getAttributes().getColor(fluid);
             RenderSystem.setShaderColor(ColorHelper.getRedF(color), ColorHelper.getGreenF(color), ColorHelper.getBlueF(color), ColorHelper.getAlphaF(color));
