@@ -31,9 +31,19 @@ import static com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS;
 
 public final class GuiHelper
 {
+    public static void drawLayer(PoseStack poseStack, int x, int y, TexturePos pos, int z)
+    {
+        GuiUtils.drawTexturedModalRect(poseStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), z);
+    }
+
     public static void drawLayer(PoseStack poseStack, int x, int y, TexturePos pos)
     {
         GuiUtils.drawTexturedModalRect(poseStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), 0);
+    }
+
+    public static void drawLayer(Screen gui, PoseStack poseStack, int x, int y, TexturePos pos)
+    {
+        gui.blit(poseStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight());
     }
 
     public static void drawLayerBySize(PoseStack poseStack, int x, int y, TexturePos pos, int textureWidth, int textureHeight)
@@ -46,7 +56,7 @@ public final class GuiHelper
         drawLayerBySize(poseStack, x, y, pos, pos.getWidth(), pos.getHeight());
     }
 
-    public static void renderIconButton(PoseStack poseStack, float partialTicks, int mouseX, int mouseY, ResourceLocation texture, IconButton button, TexturePos normalPos, TexturePos hoveredPos, TexturePos pressedPos)
+    public static void renderIconButton(PoseStack poseStack, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, IconButton button, TexturePos normalPos, TexturePos hoveredPos, TexturePos pressedPos)
     {
         button.render(poseStack, mouseX, mouseY, partialTicks);
 
@@ -55,22 +65,22 @@ public final class GuiHelper
         RenderSystem.setShaderTexture(0, texture);
         if (button.isPressed())
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, pressedPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, pressedPos, z);
             RenderSystem.disableBlend();
             return;
         }
         else if (button.m_198029_())
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos, z);
             RenderSystem.disableBlend();
             return;
         }
 
-        GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos);
+        GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos, z);
         RenderSystem.disableBlend();
     }
 
-    public static void renderButton(PoseStack poseStack, float partialTicks, int mouseX, int mouseY, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
+    public static void renderButton(PoseStack poseStack, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
     {
         button.render(poseStack, mouseX, mouseY, partialTicks);
 
@@ -80,11 +90,11 @@ public final class GuiHelper
 
         if (button.m_198029_())
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos, z);
         }
         else
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos);
+            GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos, z);
         }
 
         RenderSystem.disableBlend();

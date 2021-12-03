@@ -1,20 +1,7 @@
 package cloud.lemonslice.silveroak.client.texture;
 
-public class TexturePos
+public record TexturePos(int textureX, int textureY, int width, int height)
 {
-    private final int textureX;
-    private final int textureY;
-    private final int width;
-    private final int height;
-
-    public TexturePos(int textureX, int textureY, int width, int height)
-    {
-        this.textureX = textureX;
-        this.textureY = textureY;
-        this.width = width;
-        this.height = height;
-    }
-
     public int getX()
     {
         return textureX;
@@ -33,5 +20,10 @@ public class TexturePos
     public int getHeight()
     {
         return height;
+    }
+
+    public static TexturePos create(int textureX, int textureY, int width, int height)
+    {
+        return new TexturePos(textureX, textureY, width, height);
     }
 }
