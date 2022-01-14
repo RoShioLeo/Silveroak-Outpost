@@ -5,7 +5,6 @@ import cloud.lemonslice.silveroak.common.environment.Temperature;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -27,13 +26,6 @@ public class ThermometerBarRenderer extends GuiComponent
 
     private static float temp = 0;
     private static float level = 0;
-
-    private final Minecraft mc;
-
-    public ThermometerBarRenderer(Minecraft mc)
-    {
-        this.mc = mc;
-    }
 
     public void renderStatusBar(PoseStack poseStack, int screenWidth, int screenHeight, float temp)
     {
@@ -63,23 +55,23 @@ public class ThermometerBarRenderer extends GuiComponent
         }
         else if (temp <= Temperature.FREEZING.getMax())
         {
-            return (int) (5 * temp);
+            return Math.round(5 * temp);
         }
         else if (temp > Temperature.HEAT.getMin())
         {
             temp -= t.getMin();
             int id = t.getId() - 1;
-            int width = id * 5;
+            float width = id * 5;
             width += 5 * temp / 0.35F;
-            return width;
+            return Math.round(width);
         }
         else
         {
             temp -= t.getMin();
             int id = t.getId() - 1;
-            int width = id * 5;
+            float width = id * 5;
             width += 5 * temp / t.getWidth();
-            return width;
+            return Math.round(width);
         }
     }
 

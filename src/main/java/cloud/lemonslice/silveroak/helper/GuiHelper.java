@@ -68,7 +68,7 @@ public final class GuiHelper
             RenderSystem.disableBlend();
             return;
         }
-        else if (button.m_198029_())
+        else if (button.isHoveredOrFocused())
         {
             GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
             RenderSystem.disableBlend();
@@ -87,7 +87,7 @@ public final class GuiHelper
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
 
-        if (button.m_198029_())
+        if (button.isHoveredOrFocused())
         {
             GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
         }

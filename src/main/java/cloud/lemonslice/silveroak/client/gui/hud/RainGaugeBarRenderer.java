@@ -4,7 +4,6 @@ import cloud.lemonslice.silveroak.client.texture.TexturePos;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -27,13 +26,6 @@ public class RainGaugeBarRenderer extends GuiComponent
     private static float rainfall = 0;
     private static float level = 0;
 
-    private final Minecraft mc;
-
-    public RainGaugeBarRenderer(Minecraft mc)
-    {
-        this.mc = mc;
-    }
-
     public void renderStatusBar(PoseStack poseStack, int screenWidth, int screenHeight, float rainfall)
     {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -42,7 +34,7 @@ public class RainGaugeBarRenderer extends GuiComponent
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-        level = rainfall;
+        level = rainfall + 0.01F;
 
         int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
@@ -61,9 +53,9 @@ public class RainGaugeBarRenderer extends GuiComponent
         {
             return width;
         }
-        if (rainfall <= 1.0F)
+        else if (rainfall <= 1.0F)
         {
-            return width + (int) ((WIDTH - 2) * rainfall);
+            return Math.round((WIDTH - 2) * rainfall);
         }
         else
         {

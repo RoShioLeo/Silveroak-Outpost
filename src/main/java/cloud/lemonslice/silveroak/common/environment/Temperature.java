@@ -1,21 +1,25 @@
 package cloud.lemonslice.silveroak.common.environment;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public enum Temperature
 {
-    FREEZING(Float.NEGATIVE_INFINITY, 0.15F),
-    COLD(0.15F, 0.4F),
-    COOL(0.4F, 0.65F),
-    WARM(0.65F, 0.9F),
-    HOT(0.9F, 1.25F),
-    HEAT(1.25F, Float.POSITIVE_INFINITY);
+    FREEZING(ChatFormatting.BLUE, Float.NEGATIVE_INFINITY, 0.15F),
+    COLD(ChatFormatting.AQUA, 0.15F, 0.4F),
+    COOL(ChatFormatting.GREEN, 0.4F, 0.65F),
+    WARM(ChatFormatting.YELLOW, 0.65F, 0.9F),
+    HOT(ChatFormatting.GOLD, 0.9F, 1.25F),
+    HEAT(ChatFormatting.RED, 1.25F, Float.POSITIVE_INFINITY);
 
-    private float min;
-    private float max;
+    private final ChatFormatting color;
+    private final float min;
+    private final float max;
 
-    Temperature(float min, float max)
+    Temperature(ChatFormatting color, float min, float max)
     {
+        this.color = color;
         this.min = min;
         this.max = max;
     }
@@ -50,9 +54,9 @@ public enum Temperature
         return max - min;
     }
 
-    public TranslatableComponent getTranslation()
+    public Component getTranslation()
     {
-        return new TranslatableComponent("info.silveroak.environment.temperature." + getName());
+        return new TranslatableComponent("info.silveroak.environment.temperature." + getName()).withStyle(color);
     }
 
     public static Temperature getTemperatureLevel(float temp)

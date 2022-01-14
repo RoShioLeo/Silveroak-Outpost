@@ -24,12 +24,9 @@ public class IconButton extends Button
     @Override
     public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
     {
-        if (this.m_198029_())
+        if (this.isHoveredOrFocused())
         {
-            poseStack.pushPose();
-            poseStack.translate(0, 0, 500);
             this.renderToolTip(poseStack, mouseX, mouseY);
-            poseStack.popPose();
         }
     }
 

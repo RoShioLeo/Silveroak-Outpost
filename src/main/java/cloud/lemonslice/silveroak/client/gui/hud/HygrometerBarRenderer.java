@@ -5,7 +5,6 @@ import cloud.lemonslice.silveroak.common.environment.Humidity;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -28,13 +27,6 @@ public class HygrometerBarRenderer extends GuiComponent
     private static float humidity = 0;
     private static int level = 0;
 
-    private final Minecraft mc;
-
-    public HygrometerBarRenderer(Minecraft mc)
-    {
-        this.mc = mc;
-    }
-
     public void renderStatusBar(PoseStack poseStack, int screenWidth, int screenHeight, float temperature, float rainfall)
     {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -47,7 +39,7 @@ public class HygrometerBarRenderer extends GuiComponent
 
         int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
-        int width = (int) (humidity * 6);
+        int width = Math.round(humidity * 6);
         GuiHelper.drawLayerBySize(poseStack, offsetX + 1, offsetY + 1, new TexturePos(1, 20, width, HEIGHT - 2), 256, 256);
         GuiHelper.drawLayerBySize(poseStack, offsetX, offsetY, new TexturePos(0, 24, WIDTH, HEIGHT), 256, 256);
 

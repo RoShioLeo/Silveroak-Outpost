@@ -1,20 +1,24 @@
 package cloud.lemonslice.silveroak.common.environment;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public enum Rainfall
 {
-    RARE(Float.NEGATIVE_INFINITY, 0.1F),
-    SCARCE(0.1F, 0.3F),
-    MODERATE(0.3F, 0.6F),
-    ADEQUATE(0.6F, 0.8F),
-    ABUNDANT(0.8F, Float.POSITIVE_INFINITY);
+    RARE(ChatFormatting.RED, Float.NEGATIVE_INFINITY, 0.1F),
+    SCARCE(ChatFormatting.GOLD, 0.1F, 0.3F),
+    MODERATE(ChatFormatting.WHITE, 0.3F, 0.6F),
+    ADEQUATE(ChatFormatting.DARK_AQUA, 0.6F, 0.8F),
+    ABUNDANT(ChatFormatting.DARK_GREEN, 0.8F, Float.POSITIVE_INFINITY);
 
-    private float min;
-    private float max;
+    private final float min;
+    private final float max;
+    private final ChatFormatting color;
 
-    Rainfall(float min, float max)
+    Rainfall(ChatFormatting color, float min, float max)
     {
+        this.color = color;
         this.min = min;
         this.max = max;
     }
@@ -44,9 +48,9 @@ public enum Rainfall
         return max;
     }
 
-    public TranslatableComponent getTranslation()
+    public Component getTranslation()
     {
-        return new TranslatableComponent("info.silveroak.environment.rainfall." + getName());
+        return new TranslatableComponent("info.silveroak.environment.rainfall." + getName()).withStyle(color);
     }
 
     public static Rainfall getRainfallLevel(float rainfall)
