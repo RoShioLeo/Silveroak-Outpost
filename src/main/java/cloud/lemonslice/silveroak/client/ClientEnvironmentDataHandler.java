@@ -14,11 +14,12 @@ import java.util.List;
 
 public final class ClientEnvironmentDataHandler
 {
+    @SuppressWarnings("deprecation")
     public static void addTemperatureInfo(List<Component> pTooltipComponents)
     {
         Player player = SilveroakOutpost.PROXY.getClientPlayer();
         Biome biome = player.getLevel().getBiome(player.blockPosition());
-        float tempF = biome.getHeightAdjustedTemperature(player.blockPosition());
+        float tempF = biome.getTemperature(player.blockPosition());
         Temperature temperature = Temperature.getTemperatureLevel(tempF);
         pTooltipComponents.add(new TranslatableComponent("info.silveroak.environment.temperature", temperature.getTranslation(), new DecimalFormat("0.00").format(tempF)));
     }
@@ -32,11 +33,12 @@ public final class ClientEnvironmentDataHandler
         pTooltipComponents.add(new TranslatableComponent("info.silveroak.environment.rainfall", rainfall.getTranslation(), new DecimalFormat("0.00").format(rainfallF)));
     }
 
+    @SuppressWarnings("deprecation")
     public static void addHumidityInfo(List<Component> pTooltipComponents)
     {
         Player player = SilveroakOutpost.PROXY.getClientPlayer();
         Biome biome = player.getLevel().getBiome(player.blockPosition());
-        float tempF = biome.getHeightAdjustedTemperature(player.blockPosition());
+        float tempF = biome.getTemperature(player.blockPosition());
         float rainfallF = biome.getDownfall();
         Humidity humidity = Humidity.getHumid(rainfallF, tempF);
         pTooltipComponents.add(new TranslatableComponent("info.silveroak.environment.humidity", humidity.getTranslation()));

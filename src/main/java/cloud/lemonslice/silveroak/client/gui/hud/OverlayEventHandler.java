@@ -22,6 +22,7 @@ public final class OverlayEventHandler
     private final static HygrometerBarRenderer BAR_2 = new HygrometerBarRenderer();
 
     @SubscribeEvent(receiveCanceled = true)
+    @SuppressWarnings("deprecation")
     public static void onEvent(RenderGameOverlayEvent.Pre event)
     {
         LocalPlayer clientPlayer = Minecraft.getInstance().player;
@@ -35,7 +36,7 @@ public final class OverlayEventHandler
                     Biome biome = clientPlayer.getLevel().getBiome(clientPlayer.blockPosition());
                     if (originThermometerBar && handed.equals(SilveroakItemsRegistry.THERMOMETER.get()))
                     {
-                        BAR_0.renderStatusBar(event.getMatrixStack(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight(), biome.getHeightAdjustedTemperature(clientPlayer.blockPosition()));
+                        BAR_0.renderStatusBar(event.getMatrixStack(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight(), biome.getTemperature(clientPlayer.blockPosition()));
                     }
                     else if (handed.equals(SilveroakItemsRegistry.RAIN_GAUGE.get()))
                     {
@@ -43,7 +44,7 @@ public final class OverlayEventHandler
                     }
                     else if (handed.equals(SilveroakItemsRegistry.HYGROMETER.get()))
                     {
-                        BAR_2.renderStatusBar(event.getMatrixStack(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight(), biome.getHeightAdjustedTemperature(clientPlayer.blockPosition()), biome.getDownfall());
+                        BAR_2.renderStatusBar(event.getMatrixStack(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight(), biome.getTemperature(clientPlayer.blockPosition()), biome.getDownfall());
                     }
                 }
             }
