@@ -1,8 +1,10 @@
 package cloud.lemonslice.silveroak.common.environment;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.biome.Biome;
 
 public enum Temperature
 {
@@ -57,6 +59,12 @@ public enum Temperature
     public Component getTranslation()
     {
         return new TranslatableComponent("info.silveroak.environment.temperature." + getName()).withStyle(color);
+    }
+
+    @SuppressWarnings("deprecation")
+    public static Temperature getTemperatureLevel(Biome biome, BlockPos pos)
+    {
+        return getTemperatureLevel(biome.getTemperature(pos));
     }
 
     public static Temperature getTemperatureLevel(float temp)

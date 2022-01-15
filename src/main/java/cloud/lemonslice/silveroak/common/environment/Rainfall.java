@@ -3,6 +3,7 @@ package cloud.lemonslice.silveroak.common.environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.biome.Biome;
 
 public enum Rainfall
 {
@@ -51,6 +52,11 @@ public enum Rainfall
     public Component getTranslation()
     {
         return new TranslatableComponent("info.silveroak.environment.rainfall." + getName()).withStyle(color);
+    }
+
+    public static Rainfall getRainfallLevel(Biome biome)
+    {
+        return getRainfallLevel(biome.getDownfall());
     }
 
     public static Rainfall getRainfallLevel(float rainfall)

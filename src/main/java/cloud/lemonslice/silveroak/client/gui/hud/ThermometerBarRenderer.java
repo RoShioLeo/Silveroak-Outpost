@@ -55,7 +55,7 @@ public class ThermometerBarRenderer extends GuiComponent
         }
         else if (temp <= Temperature.FREEZING.getMax())
         {
-            return Math.round(5 * temp);
+            return Math.round(5 * temp / 0.15F);
         }
         else if (temp > Temperature.HEAT.getMin())
         {

@@ -1,8 +1,10 @@
 package cloud.lemonslice.silveroak.common.environment;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.biome.Biome;
 
 public enum Humidity
 {
@@ -47,6 +49,11 @@ public enum Humidity
         int tOrder = temperature.ordinal();
         int level = Math.max(0, rOrder - Math.abs(rOrder - tOrder) / 2);
         return Humidity.values()[level];
+    }
+
+    public static Humidity getHumid(Biome biome, BlockPos pos)
+    {
+        return getHumid(Rainfall.getRainfallLevel(biome), Temperature.getTemperatureLevel(biome, pos));
     }
 
     public static Humidity getHumid(float rainfall, float temperature)
