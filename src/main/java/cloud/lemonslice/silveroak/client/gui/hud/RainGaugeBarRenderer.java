@@ -34,7 +34,7 @@ public class RainGaugeBarRenderer extends GuiComponent
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-        level = rainfall + 0.01F;
+        level = rainfall + 0.02F;
 
         int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
@@ -70,11 +70,11 @@ public class RainGaugeBarRenderer extends GuiComponent
         {
             if (level > rainfall)
             {
-                rainfall += 0.02F;
+                rainfall += 0.01F;
             }
             else if (level < rainfall)
             {
-                rainfall -= 0.02F;
+                rainfall -= 0.01F;
             }
         }
     }
