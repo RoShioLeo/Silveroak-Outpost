@@ -51,11 +51,11 @@ public class HygrometerBarRenderer extends GuiComponent
     {
         if (event.phase.equals(TickEvent.Phase.START))
         {
-            if (level > humidity)
+            if (level - 0.0078125F > humidity)
             {
                 humidity += 0.05F;
             }
-            else if (level < humidity)
+            else if (level + 0.0078125F < humidity)
             {
                 humidity -= 0.05F;
             }

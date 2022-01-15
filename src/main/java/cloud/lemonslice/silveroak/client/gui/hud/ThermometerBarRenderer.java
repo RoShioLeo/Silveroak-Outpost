@@ -35,7 +35,7 @@ public class ThermometerBarRenderer extends GuiComponent
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-        level = (int) (temp * 100) / 100.0F;
+        level = temp;
 
         int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
@@ -78,11 +78,11 @@ public class ThermometerBarRenderer extends GuiComponent
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event)
     {
-        if (level > temp)
+        if (level - 0.0078125F > temp)
         {
             temp += 0.01F;
         }
-        else if (level < temp)
+        else if (level + 0.0078125F < temp)
         {
             temp -= 0.01F;
         }
