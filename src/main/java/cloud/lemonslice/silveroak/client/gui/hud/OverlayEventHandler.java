@@ -33,7 +33,7 @@ public final class OverlayEventHandler
                 if (!clientPlayer.getMainHandItem().isEmpty())
                 {
                     Item handed = clientPlayer.getMainHandItem().getItem();
-                    Biome biome = clientPlayer.getLevel().getBiome(clientPlayer.blockPosition());
+                    Biome biome = clientPlayer.getLevel().getBiome(clientPlayer.blockPosition()).value();
                     if (originThermometerBar && handed.equals(SilveroakItemsRegistry.THERMOMETER.get()))
                     {
                         BAR_0.renderStatusBar(event.getMatrixStack(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight(), biome.getTemperature(clientPlayer.blockPosition()));

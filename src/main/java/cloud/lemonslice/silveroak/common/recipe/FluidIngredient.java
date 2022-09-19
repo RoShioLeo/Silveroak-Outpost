@@ -5,11 +5,12 @@ import com.google.gson.*;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntComparators;
 import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -159,7 +160,7 @@ public class FluidIngredient implements Predicate<FluidStack>
         return fromFluidListStream(Arrays.stream(stacks).map(SingleFluidList::new));
     }
 
-    public static FluidIngredient fromTag(int amount, Tag<Fluid> tagIn)
+    public static FluidIngredient fromTag(int amount, TagKey<Fluid> tagIn)
     {
         return fromFluidListStream(Stream.of(new FluidIngredient.TagList(tagIn, amount)));
     }
@@ -223,15 +224,8 @@ public class FluidIngredient implements Predicate<FluidStack>
         {
             int amount = GsonHelper.getAsInt(json, "amount", 1000);
             ResourceLocation resourcelocation = new ResourceLocation(GsonHelper.getAsString(json, "tag"));
-            Tag<Fluid> tag = (Tag<Fluid>) FluidTags.getAllTags().getTag(resourcelocation);
-            if (tag == null)
-            {
-                throw new JsonSyntaxException("Unknown fluid tag '" + resourcelocation + "'");
-            }
-            else
-            {
-                return new FluidIngredient.TagList(tag, amount);
-            }
+            TagKey<Fluid> tag = FluidTags.create(resourcelocation);
+            return new TagList(tag, amount);
         }
         else
         {
@@ -276,22 +270,23 @@ public class FluidIngredient implements Predicate<FluidStack>
 
     public static class TagList implements IFluidList
     {
-        private final Tag<Fluid> tag;
+        private final TagKey<Fluid> tag;
         private final int amount;
 
-        public TagList(Tag<Fluid> tagIn, int amount)
+        public TagList(TagKey<Fluid> tagIn, int amount)
         {
             this.tag = tagIn;
             this.amount = amount;
         }
 
+        @SuppressWarnings("deprecation")
         public Collection<FluidStack> getStacks()
         {
             List<FluidStack> list = Lists.newArrayList();
 
-            for (Fluid fluid : this.tag.getValues())
+            for (Holder<Fluid> holder : Registry.FLUID.getTagOrEmpty(this.tag))
             {
-                list.add(new FluidStack(fluid, this.amount));
+                list.add(new FluidStack(holder.value(), this.amount));
             }
             return list;
         }
@@ -299,7 +294,7 @@ public class FluidIngredient implements Predicate<FluidStack>
         public JsonObject serialize()
         {
             JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", FluidTags.getAllTags().getId(this.tag).toString());
+            jsonobject.addProperty("tag", this.tag.location().toString());
             jsonobject.addProperty("amount", this.amount);
             return jsonobject;
         }
