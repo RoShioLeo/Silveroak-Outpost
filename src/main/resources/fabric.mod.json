@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "silveroak",
+  "version": "${version}",
+  "name": "Silveroak Outpost",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "RoshioLeo"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/silveroak/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "cloud.lemonslice.silveroak.data.DataGenerationHandler"
+    ],
+    "main": [
+      "cloud.lemonslice.silveroak.SilveroakOutpost"
+    ],
+    "client": [
+      "cloud.lemonslice.silveroak.client.gui.hud.OverlayHandler"
+    ]
+  },
+  "mixins": [
+    "silveroak.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric-api": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

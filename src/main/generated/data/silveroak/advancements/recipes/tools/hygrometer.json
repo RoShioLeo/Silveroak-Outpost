@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "silveroak:hygrometer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_thermometer": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "silveroak:thermometer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_thermometer",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "silveroak:hygrometer"
+    ]
+  }
+}

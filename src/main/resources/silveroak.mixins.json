@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cloud.lemonslice.silveroak.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "IBiomeInvoker"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

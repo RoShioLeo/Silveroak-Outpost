@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "rain_gauge",
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    },
+    "x": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "pattern": [
+    "# #",
+    "# #",
+    "#x#"
+  ],
+  "result": {
+    "item": "silveroak:rain_gauge"
+  }
+}
