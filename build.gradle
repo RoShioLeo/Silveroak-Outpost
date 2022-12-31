@@ -86,6 +86,14 @@ sourceSets {
     }
 }
 
+jar.finalizedBy('reobfJar')
+
+def reobfFile = file("$buildDir/reobfJar/output.jar")
+def reobfArtifact = artifacts.add('default', reobfFile) {
+    type 'jar'
+    builtBy 'reobfJar'
+}
+
 // configure the maven publication
 publishing {
     publications {
@@ -93,6 +101,7 @@ publishing {
             groupId = "cloud.lemonslice.silveroak"
             artifactId = "SilveroakOutpost-Fabric-${minecraft_version}"
 
+            artifact reobfArtifact
             pom {
                 name = 'Silveroak Outpost for Minecraft 1.19'
                 description = 'Minecraft mod library.'
