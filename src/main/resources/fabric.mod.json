@@ -3,15 +3,15 @@
   "id": "silveroak",
   "version": "${version}",
   "name": "Silveroak Outpost",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "This is a simple library that provides environment framework like temperature, rainfall, and humidity, also other development tools.",
   "authors": [
     "RoshioLeo"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/RoShioLeo",
+    "sources": "https://github.com/lemon-slice-studio/Silveroak-Outpost"
   },
-  "license": "CC0-1.0",
+  "license": "BSD-3",
   "icon": "assets/silveroak/icon.png",
   "environment": "*",
   "entrypoints": {

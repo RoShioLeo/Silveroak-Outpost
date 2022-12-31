@@ -1,6 +1,6 @@
 package cloud.lemonslice.silveroak.data.provider;
 
-import cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry;
+import cloud.lemonslice.silveroak.common.item.SilveroakRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -21,13 +21,13 @@ public final class RecipesProvider extends FabricRecipeProvider
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter)
     {
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, SilveroakItemsRegistry.HYGROMETER)
-                .input(SilveroakItemsRegistry.THERMOMETER)
-                .input(SilveroakItemsRegistry.RAIN_GAUGE)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, SilveroakRegistry.HYGROMETER)
+                .input(SilveroakRegistry.THERMOMETER)
+                .input(SilveroakRegistry.RAIN_GAUGE)
                 .group("hygrometer")
-                .criterion(hasItem(SilveroakItemsRegistry.THERMOMETER), conditionsFromItem(SilveroakItemsRegistry.THERMOMETER))
+                .criterion(hasItem(SilveroakRegistry.THERMOMETER), conditionsFromItem(SilveroakRegistry.THERMOMETER))
                 .offerTo(exporter);
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, SilveroakItemsRegistry.THERMOMETER)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, SilveroakRegistry.THERMOMETER)
                 .input('x', Items.WATER_BUCKET)
                 .input('#', Items.GLASS)
                 .pattern("###")
@@ -36,7 +36,7 @@ public final class RecipesProvider extends FabricRecipeProvider
                 .group("thermometer")
                 .criterion(hasItem(Items.WATER_BUCKET), conditionsFromItem(Items.WATER_BUCKET))
                 .offerTo(exporter);
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, SilveroakItemsRegistry.RAIN_GAUGE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, SilveroakRegistry.RAIN_GAUGE)
                 .input('x', Items.BUCKET)
                 .input('#', Items.GLASS)
                 .pattern("# #")

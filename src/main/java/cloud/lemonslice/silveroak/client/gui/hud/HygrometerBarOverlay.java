@@ -2,7 +2,7 @@ package cloud.lemonslice.silveroak.client.gui.hud;
 
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
 import cloud.lemonslice.silveroak.common.environment.Humidity;
-import cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry;
+import cloud.lemonslice.silveroak.common.item.SilveroakRegistry;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -41,7 +41,7 @@ public class HygrometerBarOverlay extends DrawableHelper implements HudRenderCal
             if (!clientPlayer.getMainHandStack().isEmpty())
             {
                 Item handed = clientPlayer.getMainHandStack().getItem();
-                if (handed.equals(SilveroakItemsRegistry.HYGROMETER))
+                if (handed.equals(SilveroakRegistry.HYGROMETER))
                 {
                     RenderSystem.setShader(GameRenderer::getPositionTexProgram);
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

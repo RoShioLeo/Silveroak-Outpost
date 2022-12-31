@@ -1,7 +1,7 @@
 package cloud.lemonslice.silveroak.client.gui.hud;
 
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
-import cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry;
+import cloud.lemonslice.silveroak.common.item.SilveroakRegistry;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -40,7 +40,7 @@ public class RainGaugeBarOverlay extends DrawableHelper implements HudRenderCall
             if (!clientPlayer.getMainHandStack().isEmpty())
             {
                 Item handed = clientPlayer.getMainHandStack().getItem();
-                if (handed.equals(SilveroakItemsRegistry.RAIN_GAUGE))
+                if (handed.equals(SilveroakRegistry.RAIN_GAUGE))
                 {
                     Biome biome = clientPlayer.getWorld().getBiome(clientPlayer.getBlockPos()).value();
                     float rainfall = biome.getDownfall();

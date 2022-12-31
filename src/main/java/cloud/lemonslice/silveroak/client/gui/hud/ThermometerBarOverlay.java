@@ -2,7 +2,7 @@ package cloud.lemonslice.silveroak.client.gui.hud;
 
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
 import cloud.lemonslice.silveroak.common.environment.Temperature;
-import cloud.lemonslice.silveroak.common.item.SilveroakItemsRegistry;
+import cloud.lemonslice.silveroak.common.item.SilveroakRegistry;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
 import cloud.lemonslice.silveroak.mixin.IBiomeInvoker;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -43,7 +43,7 @@ public class ThermometerBarOverlay extends DrawableHelper implements HudRenderCa
             if (!clientPlayer.getMainHandStack().isEmpty())
             {
                 Item handed = clientPlayer.getMainHandStack().getItem();
-                if (handed.equals(SilveroakItemsRegistry.THERMOMETER))
+                if (handed.equals(SilveroakRegistry.THERMOMETER))
                 {
                     Biome biome = clientPlayer.getWorld().getBiome(clientPlayer.getBlockPos()).value();
                     float temp = ((IBiomeInvoker) (Object) biome).invokeComputeTemperature(clientPlayer.getBlockPos());
