@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import static cloud.lemonslice.silveroak.SilveroakOutpost.MODID;
 
 
-public class TextBoxEditMessage implements INormalMessage
+public class TextBoxEditMessage implements IToServerMessage
 {
     private ItemStack item;
     private int held;
@@ -33,6 +33,13 @@ public class TextBoxEditMessage implements INormalMessage
         return buf;
     }
 
+    public static TextBoxEditMessage fromBytes(PacketByteBuf buf)
+    {
+        ItemStack item = buf.readItemStack();
+        int held = buf.readInt();
+        return create(item, held);
+    }
+
     public static Identifier getID()
     {
         return new Identifier(MODID + ":text_box_edit");
@@ -43,16 +50,15 @@ public class TextBoxEditMessage implements INormalMessage
         return new TextBoxEditMessage(item, held);
     }
 
-    public static void process(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender)
+    @Override
+    public void process(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketSender responseSender)
     {
         if (player != null)
         {
             server.executeSync(() ->
             {
-                ItemStack item = buf.readItemStack();
                 if (item.hasNbt())
                 {
-                    int held = buf.readInt();
                     if (PlayerInventory.isValidHotbarIndex(held) || held == 40)
                     {
                         ItemStack card = player.getInventory().getStack(held);
