@@ -11,12 +11,12 @@ public final class SimpleNetworkHandler
         registerToServerMessage(TextBoxEditMessage.getID(), TextBoxEditMessage::process);
     }
 
-    private static void registerToServerMessage(Identifier packetID, ServerPlayNetworking.PlayChannelHandler channelHandler)
+    public static void registerToServerMessage(Identifier packetID, ServerPlayNetworking.PlayChannelHandler channelHandler)
     {
         ServerPlayNetworking.registerGlobalReceiver(packetID, channelHandler);
     }
 
-    private static void registerToClientMessage(Identifier packetID, ClientPlayNetworking.PlayChannelHandler channelHandler)
+    public static void registerToClientMessage(Identifier packetID, ClientPlayNetworking.PlayChannelHandler channelHandler)
     {
         ClientPlayNetworking.registerGlobalReceiver(packetID, channelHandler);
     }

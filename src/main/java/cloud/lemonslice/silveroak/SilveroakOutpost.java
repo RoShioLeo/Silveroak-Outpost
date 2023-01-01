@@ -1,6 +1,7 @@
 package cloud.lemonslice.silveroak;
 
 import cloud.lemonslice.silveroak.common.item.SilveroakRegistry;
+import cloud.lemonslice.silveroak.network.SimpleNetworkHandler;
 import net.fabricmc.api.ModInitializer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -36,5 +37,6 @@ public class SilveroakOutpost implements ModInitializer
     public void onInitialize()
     {
         SilveroakRegistry.initItems();
+        SimpleNetworkHandler.init();
     }
 }
