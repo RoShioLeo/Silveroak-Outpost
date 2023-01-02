@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.screen.ScreenHandlerType;
 
 public final class SilveroakRegistry
 {
@@ -46,6 +47,11 @@ public final class SilveroakRegistry
     public static void registerBlockEntity(BlockEntityType<?> blockIn)
     {
         register(Registries.BLOCK_ENTITY_TYPE, blockIn);
+    }
+
+    public static void registerScreenHandler(ScreenHandlerType<?> screenHandler)
+    {
+        register(Registries.SCREEN_HANDLER, screenHandler);
     }
 
     public static <T> void register(Registry<T> registry, T entryIn)

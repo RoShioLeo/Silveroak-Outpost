@@ -1,31 +1,30 @@
 package cloud.lemonslice.silveroak.common.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.Item;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
-public class NormalItem extends Item implements ISilveroakItem
+public class NormalBlockItem extends BlockItem implements ISilveroakItem
 {
     private final ItemGroup itemGroup;
     private final Identifier registryID;
 
-    public NormalItem(Identifier id, Settings settings, ItemGroup itemGroup)
+    public NormalBlockItem(Block block, Identifier id, Settings settings, ItemGroup itemGroup)
     {
-        super(settings);
+        super(block, settings);
         this.itemGroup = itemGroup;
         this.registryID = id;
     }
 
-    public NormalItem(Identifier id, ItemGroup itemGroup)
+    public NormalBlockItem(Block block, Identifier id, ItemGroup itemGroup)
     {
-        super(new FabricItemSettings());
+        super(block, new FabricItemSettings());
         this.itemGroup = itemGroup;
         this.registryID = id;
     }
 
-    @Nullable
     @Override
     public ItemGroup getItemGroup()
     {
