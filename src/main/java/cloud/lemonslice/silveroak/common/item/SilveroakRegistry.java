@@ -4,11 +4,14 @@ import cloud.lemonslice.silveroak.SilveroakOutpost;
 import cloud.lemonslice.silveroak.common.ISilveroakEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Identifier;
 
 public final class SilveroakRegistry
 {
@@ -44,14 +47,14 @@ public final class SilveroakRegistry
         register(Registries.BLOCK, blockIn);
     }
 
-    public static void registerBlockEntity(BlockEntityType<?> blockIn)
+    public static <T extends BlockEntity> BlockEntityType<T> registerBlockEntity(Identifier id, BlockEntityType.Builder<T> builder)
     {
-        register(Registries.BLOCK_ENTITY_TYPE, blockIn);
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, id, builder.build(null));
     }
 
-    public static void registerScreenHandler(ScreenHandlerType<?> screenHandler)
+    public static <T extends ScreenHandler> ScreenHandlerType<T> registerScreenHandler(Identifier id, ScreenHandlerType.Factory<T> factory)
     {
-        register(Registries.SCREEN_HANDLER, screenHandler);
+        return Registry.register(Registries.SCREEN_HANDLER, id, new ScreenHandlerType<>(factory));
     }
 
     public static <T> void register(Registry<T> registry, T entryIn)
