@@ -1,18 +1,9 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://maven.parchmentmc.org' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
-    }
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = "${mod_version}-${mod_phase}"
 group = 'cloud.lemonslice.sliveroak'
@@ -34,8 +25,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'info'
 
+            property 'forge.enabledGameTestNamespaces', 'silveroakoutpost'
+
             mods {
-                examplemod {
+                silveroakoutpost {
                     source sourceSets.main
                 }
             }
@@ -48,8 +41,26 @@ minecraft {
 
             property 'forge.logging.console.level', 'info'
 
+            property 'forge.enabledGameTestNamespaces', 'silveroakoutpost'
+
             mods {
-                examplemod {
+                silveroakoutpost {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'info'
+
+            property 'forge.enabledGameTestNamespaces', 'silveroakoutpost'
+
+            mods {
+                silveroakoutpost {
                     source sourceSets.main
                 }
             }
@@ -62,10 +73,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'info'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'silveroakoutpost', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                silveroakoutpost {
                     source sourceSets.main
                 }
             }
@@ -189,6 +200,6 @@ tasks.withType(PublishToMavenRepository) {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }

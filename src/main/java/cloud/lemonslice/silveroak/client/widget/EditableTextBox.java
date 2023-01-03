@@ -81,18 +81,6 @@ public class EditableTextBox extends AbstractWidget
     }
 
     // Please link to Screen
-    public void init()
-    {
-        this.mc.keyboardHandler.setSendRepeatsToGui(true);
-    }
-
-    // Please link to Screen
-    public void onClose()
-    {
-        this.mc.keyboardHandler.setSendRepeatsToGui(false);
-    }
-
-    // Please link to Screen
     public void tick()
     {
         ++this.updateCount;
@@ -483,16 +471,16 @@ public class EditableTextBox extends AbstractWidget
 
     private Point getPointPosInBox(Point pointIn)
     {
-        return new Point(pointIn.x - this.x, pointIn.y - this.y);
+        return new Point(pointIn.x - this.getX(), pointIn.y - this.getY());
     }
 
     private Point getPointPosInScreen(Point pointIn)
     {
-        return new Point(pointIn.x + this.x, pointIn.y + this.y);
+        return new Point(pointIn.x + this.getX(), pointIn.y + this.getY());
     }
 
     @Override
-    public void updateNarration(NarrationElementOutput pNarrationElementOutput)
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput)
     {
 
     }

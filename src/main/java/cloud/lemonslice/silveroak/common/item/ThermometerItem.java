@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -17,7 +17,7 @@ public class ThermometerItem extends NormalItem
 {
     public ThermometerItem()
     {
-        super(new Properties().tab(CreativeModeTab.TAB_TOOLS).stacksTo(1));
+        super(new Properties().stacksTo(1), CreativeModeTabs.TOOLS_AND_UTILITIES);
     }
 
     @Override

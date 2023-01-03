@@ -64,18 +64,18 @@ public final class GuiHelper
         RenderSystem.setShaderTexture(0, texture);
         if (button.isPressed())
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, pressedPos);
+            GuiHelper.drawLayer(poseStack, button.getX(), button.getY(), pressedPos);
             RenderSystem.disableBlend();
             return;
         }
         else if (button.isHoveredOrFocused())
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
+            GuiHelper.drawLayer(poseStack, button.getX(), button.getY(), hoveredPos);
             RenderSystem.disableBlend();
             return;
         }
 
-        GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos);
+        GuiHelper.drawLayer(poseStack, button.getX(), button.getY(), normalPos);
         RenderSystem.disableBlend();
 
         button.render(poseStack, mouseX, mouseY, partialTicks);
@@ -89,11 +89,11 @@ public final class GuiHelper
 
         if (button.isHoveredOrFocused())
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, hoveredPos);
+            GuiHelper.drawLayer(poseStack, button.getX(), button.getY(), hoveredPos);
         }
         else
         {
-            GuiHelper.drawLayer(poseStack, button.x, button.y, normalPos);
+            GuiHelper.drawLayer(poseStack, button.getX(), button.getY(), normalPos);
         }
         RenderSystem.disableBlend();
 

@@ -6,7 +6,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntComparators;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
@@ -84,6 +84,7 @@ public class FluidIngredient implements Predicate<FluidStack>
         }
     }
 
+    @SuppressWarnings("deprecation")
     public IntList getValidFluidStacksPacked()
     {
         if (this.matchingStacksPacked == null)
@@ -93,7 +94,7 @@ public class FluidIngredient implements Predicate<FluidStack>
 
             for (FluidStack fluidStack : this.matchingStacks)
             {
-                this.matchingStacksPacked.add(Registry.FLUID.getId(fluidStack.getFluid()));
+                this.matchingStacksPacked.add(BuiltInRegistries.FLUID.getId(fluidStack.getFluid()));
             }
 
             this.matchingStacksPacked.sort(IntComparators.NATURAL_COMPARATOR);
@@ -284,7 +285,7 @@ public class FluidIngredient implements Predicate<FluidStack>
         {
             List<FluidStack> list = Lists.newArrayList();
 
-            for (Holder<Fluid> holder : Registry.FLUID.getTagOrEmpty(this.tag))
+            for (Holder<Fluid> holder : BuiltInRegistries.FLUID.getTagOrEmpty(this.tag))
             {
                 list.add(new FluidStack(holder.value(), this.amount));
             }

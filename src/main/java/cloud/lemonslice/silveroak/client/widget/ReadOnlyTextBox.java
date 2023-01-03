@@ -102,7 +102,7 @@ public class ReadOnlyTextBox extends AbstractWidget
 
     private EditableTextBox.Point getPointPosInScreen(EditableTextBox.Point pointIn)
     {
-        return new EditableTextBox.Point(pointIn.x + this.x, pointIn.y + this.y);
+        return new EditableTextBox.Point(pointIn.x + this.getX(), pointIn.y + this.getY());
     }
 
     @Override
@@ -116,7 +116,7 @@ public class ReadOnlyTextBox extends AbstractWidget
     }
 
     @Override
-    public void updateNarration(NarrationElementOutput pNarrationElementOutput)
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput)
     {
 
     }

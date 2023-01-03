@@ -10,15 +10,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class IconButton extends Button
 {
     private boolean isPressed = false;
+    protected final OnTooltip onTooltip;
 
     public IconButton(int x, int y, int width, int height, Component title, OnPress pressedAction)
     {
-        super(x, y, width, height, title, pressedAction);
+        super(x, y, width, height, title, pressedAction, DEFAULT_NARRATION);
+        this.onTooltip = null;
     }
 
     public IconButton(int x, int y, int width, int height, Component title, OnPress pressedAction, OnTooltip onTooltip)
     {
-        super(x, y, width, height, title, pressedAction, onTooltip);
+        super(x, y, width, height, title, pressedAction, DEFAULT_NARRATION);
+        this.onTooltip = onTooltip;
     }
 
     @Override
@@ -27,6 +30,14 @@ public class IconButton extends Button
         if (this.isHoveredOrFocused())
         {
             this.renderToolTip(poseStack, mouseX, mouseY);
+        }
+    }
+
+    public void renderToolTip(PoseStack poseStack, int pMouseX, int pMouseY)
+    {
+        if (this.onTooltip != null)
+        {
+            this.onTooltip.onTooltip(this, poseStack, pMouseX, pMouseY);
         }
     }
 
@@ -47,5 +58,10 @@ public class IconButton extends Button
     public boolean isPressed()
     {
         return isPressed;
+    }
+
+    public interface OnTooltip
+    {
+        void onTooltip(Button button, PoseStack poseStack, int mouseX, int mouseY);
     }
 }

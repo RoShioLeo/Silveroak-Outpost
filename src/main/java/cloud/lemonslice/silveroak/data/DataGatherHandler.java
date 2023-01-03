@@ -16,6 +16,6 @@ public final class DataGatherHandler
     {
         DataGenerator gen = event.getGenerator();
 
-        gen.addProvider(event.includeServer(), new RecipesProvider(gen));
+        gen.addProvider(event.includeServer(), new RecipesProvider(gen.getPackOutput()));
     }
 }
