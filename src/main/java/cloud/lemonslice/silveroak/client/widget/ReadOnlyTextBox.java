@@ -116,6 +116,11 @@ public class ReadOnlyTextBox extends ClickableWidget
     }
 
     @Override
+    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+
+    }
+
+    @Override
     protected void appendClickableNarrations(NarrationMessageBuilder builder)
     {
 

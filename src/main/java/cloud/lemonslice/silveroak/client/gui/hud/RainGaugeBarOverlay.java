@@ -3,6 +3,7 @@ package cloud.lemonslice.silveroak.client.gui.hud;
 import cloud.lemonslice.silveroak.client.texture.TexturePos;
 import cloud.lemonslice.silveroak.common.item.SilveroakRegistry;
 import cloud.lemonslice.silveroak.helper.GuiHelper;
+import cloud.lemonslice.silveroak.mixin.BiomeWeatherAccess;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -43,7 +44,7 @@ public class RainGaugeBarOverlay extends DrawableHelper implements HudRenderCall
                 if (handed.equals(SilveroakRegistry.RAIN_GAUGE))
                 {
                     Biome biome = clientPlayer.getWorld().getBiome(clientPlayer.getBlockPos()).value();
-                    float rainfall = biome.getDownfall();
+                    float rainfall = ((BiomeWeatherAccess)(Object)biome).getDownfall();
 
                     RenderSystem.setShader(GameRenderer::getPositionTexProgram);
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

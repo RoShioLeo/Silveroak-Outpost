@@ -1,5 +1,6 @@
 package cloud.lemonslice.silveroak.common.environment;
 
+import cloud.lemonslice.silveroak.mixin.BiomeWeatherAccess;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.biome.Biome;
@@ -55,7 +56,7 @@ public enum Rainfall
 
     public static Rainfall getRainfallLevel(Biome biome)
     {
-        return getRainfallLevel(biome.getDownfall());
+        return getRainfallLevel(((BiomeWeatherAccess)(Object)biome).getDownfall());
     }
 
     public static Rainfall getRainfallLevel(float rainfall)

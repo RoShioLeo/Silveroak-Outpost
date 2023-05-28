@@ -5,7 +5,8 @@
   "name": "Silveroak Outpost",
   "description": "This is a simple library that provides environment framework like temperature, rainfall, and humidity, also other development tools.",
   "authors": [
-    "RoshioLeo"
+    "RoshioLeo",
+    "cnlimiter"
   ],
   "contact": {
     "homepage": "https://github.com/RoShioLeo",
