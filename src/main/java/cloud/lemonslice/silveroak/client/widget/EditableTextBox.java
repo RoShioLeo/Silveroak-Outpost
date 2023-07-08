@@ -391,13 +391,17 @@ public class EditableTextBox extends ClickableWidget
         this.renderCursor(matrixStack, page.point, page.isInsert);
     }
 
+    @Override
+    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+
+    }
+
     private void renderSelection(Rect2i[] selection)
     {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         RenderSystem.setShader(GameRenderer::getPositionProgram);
         RenderSystem.setShaderColor(0.0F, 0.0F, 1.0F, 1.0F);
-        RenderSystem.disableTexture();
         RenderSystem.enableColorLogicOp();
         RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
         bufferbuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
@@ -416,7 +420,6 @@ public class EditableTextBox extends ClickableWidget
 
         tessellator.draw();
         RenderSystem.disableColorLogicOp();
-        RenderSystem.enableTexture();
     }
 
     private void renderCursor(MatrixStack matrixStack, Point point, boolean isInsert)

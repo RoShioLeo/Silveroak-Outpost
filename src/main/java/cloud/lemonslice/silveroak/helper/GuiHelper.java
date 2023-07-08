@@ -160,7 +160,7 @@ public final class GuiHelper
     public static void drawSpecialString(TextRenderer font, String text, float x, float y, int color, boolean shadow, boolean transparent, int colorBackground, int packedLight)
     {
         VertexConsumerProvider.Immediate iRenderTypeBuffer = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        font.draw(text, x, y, color, shadow, AffineTransformation.identity().getMatrix(), iRenderTypeBuffer, transparent, colorBackground, packedLight);
+        font.draw(text, x, y, color, shadow, AffineTransformation.identity().getMatrix(), iRenderTypeBuffer, transparent ? TextRenderer.TextLayerType.SEE_THROUGH : TextRenderer.TextLayerType.NORMAL, colorBackground, packedLight);
         iRenderTypeBuffer.draw();
     }
 
