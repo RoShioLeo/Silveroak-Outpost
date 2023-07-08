@@ -4,9 +4,9 @@ import cloud.lemonslice.silveroak.client.texture.TexturePos;
 import cloud.lemonslice.silveroak.client.widget.IconButton;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
@@ -50,46 +50,46 @@ public final class GuiHelper
         drawTexturedModalRect(matrixStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), 0);
     }
 
-    public static void drawLayer(Screen gui, MatrixStack matrixStack, int x, int y, TexturePos pos)
+    public static void drawLayer(DrawContext drawContext, int x, int y, Identifier id, TexturePos pos)
     {
-        gui.drawTexture(matrixStack, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight());
+        drawContext.drawTexture(id, x, y, pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight());
     }
 
-    public static void drawLayerBySize(MatrixStack matrixStack, int x, int y, TexturePos pos, int textureWidth, int textureHeight)
+    public static void drawLayerBySize(DrawContext drawContext, Identifier id, int x, int y, TexturePos pos, int textureWidth, int textureHeight)
     {
-        DrawableHelper.drawTexture(matrixStack, x, y, pos.getWidth(), pos.getHeight(), pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), textureWidth, textureHeight);
+        drawContext.drawTexture(id, x, y, pos.getWidth(), pos.getHeight(), pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), textureWidth, textureHeight);
     }
 
-    public static void drawLayerBySize(MatrixStack matrixStack, int x, int y, TexturePos pos)
+    public static void drawLayerBySize(DrawContext drawContext, Identifier id, int x, int y, TexturePos pos)
     {
-        drawLayerBySize(matrixStack, x, y, pos, pos.getWidth(), pos.getHeight());
+        drawLayerBySize(drawContext, id, x, y, pos, pos.getWidth(), pos.getHeight());
     }
 
-    public static void renderIconButton(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY, int z, Identifier texture, IconButton button, TexturePos normalPos, TexturePos hoveredPos, TexturePos pressedPos)
+    public static void renderIconButton(DrawContext drawContext, float partialTicks, int mouseX, int mouseY, int z, Identifier texture, IconButton button, TexturePos normalPos, TexturePos hoveredPos, TexturePos pressedPos)
     {
         RenderSystem.enableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, texture);
         if (button.isPressed())
         {
-            GuiHelper.drawLayer(matrixStack, button.getX(), button.getY(), pressedPos);
+            GuiHelper.drawLayer(drawContext.getMatrices(), button.getX(), button.getY(), pressedPos);
             RenderSystem.disableBlend();
             return;
         }
         else if (button.isHovered())
         {
-            GuiHelper.drawLayer(matrixStack, button.getX(), button.getY(), hoveredPos);
+            GuiHelper.drawLayer(drawContext.getMatrices(), button.getX(), button.getY(), hoveredPos);
             RenderSystem.disableBlend();
             return;
         }
 
-        GuiHelper.drawLayer(matrixStack, button.getX(), button.getY(), normalPos);
+        GuiHelper.drawLayer(drawContext.getMatrices(), button.getX(), button.getY(), normalPos);
         RenderSystem.disableBlend();
 
-        button.render(matrixStack, mouseX, mouseY, partialTicks);
+        button.render(drawContext, mouseX, mouseY, partialTicks);
     }
 
-    public static void renderButton(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY, int z, Identifier texture, ButtonWidget button, TexturePos normalPos, TexturePos hoveredPos)
+    public static void renderButton(DrawContext drawContext, float partialTicks, int mouseX, int mouseY, int z, Identifier texture, ButtonWidget button, TexturePos normalPos, TexturePos hoveredPos)
     {
         RenderSystem.enableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
@@ -97,15 +97,15 @@ public final class GuiHelper
 
         if (button.isHovered())
         {
-            GuiHelper.drawLayer(matrixStack, button.getX(), button.getY(), hoveredPos);
+            GuiHelper.drawLayer(drawContext.getMatrices(), button.getX(), button.getY(), hoveredPos);
         }
         else
         {
-            GuiHelper.drawLayer(matrixStack, button.getX(), button.getY(), normalPos);
+            GuiHelper.drawLayer(drawContext.getMatrices(), button.getX(), button.getY(), normalPos);
         }
         RenderSystem.disableBlend();
 
-        button.render(matrixStack, mouseX, mouseY, partialTicks);
+        button.render(drawContext, mouseX, mouseY, partialTicks);
     }
 
 //    public static void drawTank(Screen gui, TexturePos pos, FluidStack fluid, int fluidHeight)
@@ -160,26 +160,26 @@ public final class GuiHelper
     public static void drawSpecialString(TextRenderer font, String text, float x, float y, int color, boolean shadow, boolean transparent, int colorBackground, int packedLight)
     {
         VertexConsumerProvider.Immediate iRenderTypeBuffer = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        font.draw(text, x, y, color, shadow, AffineTransformation.identity().getMatrix(), iRenderTypeBuffer, transparent, colorBackground, packedLight);
+        font.draw(text, x, y, color, shadow, AffineTransformation.identity().getMatrix(), iRenderTypeBuffer, transparent ? TextRenderer.TextLayerType.SEE_THROUGH : TextRenderer.TextLayerType.NORMAL, colorBackground, packedLight);
         iRenderTypeBuffer.draw();
     }
 
-    public static void drawTooltip(Screen gui, MatrixStack matrix, int mouseX, int mouseY, int x, int y, int weight, int height, List<Text> list)
+    public static void drawTooltip(DrawContext drawContext, int mouseX, int mouseY, int x, int y, int weight, int height, List<Text> list)
     {
         if (x <= mouseX && mouseX <= x + weight && y <= mouseY && mouseY <= y + height)
         {
-            gui.renderTooltip(matrix, list, Optional.empty(), mouseX, mouseY);
+            drawContext.drawTooltip(MinecraftClient.getInstance().textRenderer, list, Optional.empty(), mouseX, mouseY);
         }
     }
 
-    public static void drawFluidTooltip(Screen gui, MatrixStack matrix, int mouseX, int mouseY, int x, int y, int width, int height, Text name, int amount)
+    public static void drawFluidTooltip(DrawContext drawContext, int mouseX, int mouseY, int x, int y, int width, int height, Text name, int amount)
     {
         if (amount != 0)
         {
             List<Text> list = Lists.newArrayList(name);
             DecimalFormat df = new DecimalFormat("#,###");
             list.add(Text.literal(df.format(amount) + " mB").formatted(Formatting.GRAY));
-            drawTooltip(gui, matrix, mouseX, mouseY, x, y, width, height, list);
+            drawTooltip(drawContext, mouseX, mouseY, x, y, width, height, list);
         }
     }
 

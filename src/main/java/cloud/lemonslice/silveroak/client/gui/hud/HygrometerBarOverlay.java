@@ -7,10 +7,9 @@ import cloud.lemonslice.silveroak.helper.GuiHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -19,18 +18,18 @@ import org.lwjgl.opengl.GL11;
 
 import static cloud.lemonslice.silveroak.SilveroakOutpost.MODID;
 
-public class HygrometerBarOverlay extends DrawableHelper implements HudRenderCallback
+public class HygrometerBarOverlay implements HudRenderCallback
 {
     private final static Identifier OVERLAY_BAR = new Identifier(MODID, "textures/gui/hud/env.png");
 
     private final static int WIDTH = 31;
     private final static int HEIGHT = 5;
 
-    private static float humidity = 0;
-    private static int level = 0;
+    private float humidity = 0;
+    private int level = 0;
 
     @Override
-    public void onHudRender(MatrixStack matrixStack, float tickDelta)
+    public void onHudRender(DrawContext drawContext, float tickDelta)
     {
         MinecraftClient minecraft = MinecraftClient.getInstance();
         int screenWidth = minecraft.getWindow().getScaledWidth();
@@ -55,8 +54,8 @@ public class HygrometerBarOverlay extends DrawableHelper implements HudRenderCal
                     int offsetX = (screenWidth - WIDTH + 1) / 2, offsetY = (screenHeight + 36 - HEIGHT) / 2;
 
                     int width = Math.round(humidity * 6);
-                    GuiHelper.drawLayerBySize(matrixStack, offsetX + 1, offsetY + 1, new TexturePos(1, 20, width, HEIGHT - 2), 256, 256);
-                    GuiHelper.drawLayerBySize(matrixStack, offsetX, offsetY, new TexturePos(0, 24, WIDTH, HEIGHT), 256, 256);
+                    GuiHelper.drawLayer(drawContext.getMatrices(), offsetX + 1, offsetY + 1, new TexturePos(1, 20, width, HEIGHT - 2));
+                    GuiHelper.drawLayer(drawContext.getMatrices(), offsetX, offsetY, new TexturePos(0, 24, WIDTH, HEIGHT));
 
                     RenderSystem.disableBlend();
                 }
@@ -64,7 +63,7 @@ public class HygrometerBarOverlay extends DrawableHelper implements HudRenderCal
         }
     }
 
-    public static void onClientTick(ClientWorld client)
+    public void onClientTick(ClientWorld client)
     {
         if (level - 0.0078125F > humidity)
         {

@@ -11,13 +11,12 @@ import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextHandler;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.SelectionManager;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Rect2i;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -377,18 +376,24 @@ public class EditableTextBox extends ClickableWidget
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks)
     {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         Page page = this.getPage();
 
         for (Line line : page.lines)
         {
-            this.font.draw(matrixStack, line.lineTextComponent, (float) line.x, (float) line.y, color);
+            drawContext.drawText(this.font, line.lineTextComponent, line.x, line.y, color, false);
         }
 
         this.renderSelection(page.selection);
-        this.renderCursor(matrixStack, page.point, page.isInsert);
+        this.renderCursor(drawContext, page.point, page.isInsert);
+    }
+
+    @Override
+    public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float delta)
+    {
+
     }
 
     private void renderSelection(Rect2i[] selection)
@@ -397,7 +402,6 @@ public class EditableTextBox extends ClickableWidget
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         RenderSystem.setShader(GameRenderer::getPositionProgram);
         RenderSystem.setShaderColor(0.0F, 0.0F, 1.0F, 1.0F);
-        RenderSystem.disableTexture();
         RenderSystem.enableColorLogicOp();
         RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
         bufferbuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
@@ -416,21 +420,20 @@ public class EditableTextBox extends ClickableWidget
 
         tessellator.draw();
         RenderSystem.disableColorLogicOp();
-        RenderSystem.enableTexture();
     }
 
-    private void renderCursor(MatrixStack matrixStack, Point point, boolean isInsert)
+    private void renderCursor(DrawContext drawContext, Point point, boolean isInsert)
     {
         if (this.updateCount / 6 % 2 == 0 && height != 0)
         {
             point = this.getPointPosInScreen(point);
             if (!isInsert)
             {
-                DrawableHelper.fill(matrixStack, point.x, point.y - 1, point.x + 1, point.y + 9, color);
+                drawContext.fill(point.x, point.y - 1, point.x + 1, point.y + 9, color);
             }
             else
             {
-                this.font.draw(matrixStack, "_", (float) point.x, (float) point.y, color);
+                drawContext.drawText(this.font, "_", point.x, point.y, color, false);
             }
         }
 

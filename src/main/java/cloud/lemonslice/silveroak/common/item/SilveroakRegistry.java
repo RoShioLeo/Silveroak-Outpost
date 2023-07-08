@@ -1,7 +1,7 @@
 package cloud.lemonslice.silveroak.common.item;
 
 import cloud.lemonslice.silveroak.SilveroakOutpost;
-import cloud.lemonslice.silveroak.common.ISilveroakEntry;
+import cloud.lemonslice.silveroak.common.inter.ISilveroakEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
@@ -54,7 +55,7 @@ public final class SilveroakRegistry
 
     public static <T extends ScreenHandler> ScreenHandlerType<T> registerScreenHandler(Identifier id, ScreenHandlerType.Factory<T> factory)
     {
-        return Registry.register(Registries.SCREEN_HANDLER, id, new ScreenHandlerType<>(factory));
+        return Registry.register(Registries.SCREEN_HANDLER, id, new ScreenHandlerType<>(factory, FeatureFlags.VANILLA_FEATURES));
     }
 
     public static <T> void register(Registry<T> registry, T entryIn)

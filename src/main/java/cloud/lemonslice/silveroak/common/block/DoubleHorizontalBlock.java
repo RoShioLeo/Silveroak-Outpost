@@ -10,7 +10,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -37,7 +37,7 @@ public abstract class DoubleHorizontalBlock extends NormalHorizontalBlock
     }
 
     @Override
-    public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos)
+    public boolean isTransparent(BlockState state, BlockView world, BlockPos pos)
     {
         return true;
     }
@@ -105,7 +105,7 @@ public abstract class DoubleHorizontalBlock extends NormalHorizontalBlock
 
     @Override
     @SuppressWarnings("deprecation")
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder)
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder)
     {
         return state.get(HALF) == DoubleBlockHalf.LOWER ? Lists.newArrayList(new ItemStack(this)) : Collections.emptyList();
     }

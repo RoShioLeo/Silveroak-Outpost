@@ -15,9 +15,9 @@ public final class OverlayHandler implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
-        ClientTickEvents.START_WORLD_TICK.register(ThermometerBarOverlay::onClientTick);
-        ClientTickEvents.START_WORLD_TICK.register(RainGaugeBarOverlay::onClientTick);
-        ClientTickEvents.START_WORLD_TICK.register(HygrometerBarOverlay::onClientTick);
+        ClientTickEvents.START_WORLD_TICK.register(BAR_0::onClientTick);
+        ClientTickEvents.START_WORLD_TICK.register(BAR_1::onClientTick);
+        ClientTickEvents.START_WORLD_TICK.register(BAR_2::onClientTick);
 
         HudRenderCallback.EVENT.register(BAR_0);
         HudRenderCallback.EVENT.register(BAR_1);

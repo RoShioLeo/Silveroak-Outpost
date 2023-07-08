@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.3-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -60,6 +60,7 @@ jar {
 }
 
 loom {
+    accessWidenerPath = file("src/main/resources/silveroak.accesswidener")
     runs {
         //
         // This adds a new gradle task that runs the datagen API: "gradlew runDatagenClient"

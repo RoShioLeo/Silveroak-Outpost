@@ -4,6 +4,7 @@
   "package": "cloud.lemonslice.silveroak.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BiomeMixin",
     "IBiomeInvoker"
   ],
   "client": [

@@ -2,8 +2,8 @@ package cloud.lemonslice.silveroak.client.widget;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
@@ -25,19 +25,19 @@ public class IconButton extends ButtonWidget
     }
 
     @Override
-    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta)
+    public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float delta)
     {
         if (this.isHovered())
         {
-            this.renderToolTip(matrices, mouseX, mouseY);
+            this.renderToolTip(drawContext, mouseX, mouseY);
         }
     }
 
-    public void renderToolTip(MatrixStack pPoseStack, int pMouseX, int pMouseY)
+    public void renderToolTip(DrawContext drawContext, int pMouseX, int pMouseY)
     {
         if (this.onTooltip != null)
         {
-            this.onTooltip.onTooltip(this, pPoseStack, pMouseX, pMouseY);
+            this.onTooltip.onTooltip(this, drawContext, pMouseX, pMouseY);
         }
     }
 
@@ -62,6 +62,6 @@ public class IconButton extends ButtonWidget
 
     public interface OnTooltip
     {
-        void onTooltip(ButtonWidget button, MatrixStack matrixStack, int mouseX, int mouseY);
+        void onTooltip(ButtonWidget button, DrawContext drawContext, int mouseX, int mouseY);
     }
 }

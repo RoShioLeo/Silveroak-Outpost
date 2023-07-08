@@ -3,6 +3,7 @@ package cloud.lemonslice.silveroak.client;
 import cloud.lemonslice.silveroak.common.environment.Humidity;
 import cloud.lemonslice.silveroak.common.environment.Rainfall;
 import cloud.lemonslice.silveroak.common.environment.Temperature;
+import cloud.lemonslice.silveroak.common.inter.IBiomeDownfallAccess;
 import cloud.lemonslice.silveroak.mixin.IBiomeInvoker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -13,7 +14,6 @@ import java.text.DecimalFormat;
 
 public final class ClientEnvironmentDataHandler
 {
-    @SuppressWarnings("deprecation")
     public static Text getTemperatureInfo()
     {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
@@ -27,18 +27,17 @@ public final class ClientEnvironmentDataHandler
     {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         Biome biome = player.getWorld().getBiome(player.getBlockPos()).value();
-        float rainfallF = biome.getDownfall();
+        float rainfallF = ((IBiomeDownfallAccess) (Object) biome)._1_20$getDownfall();
         Rainfall rainfall = Rainfall.getRainfallLevel(rainfallF);
         return Text.translatable("info.silveroak.environment.rainfall", rainfall.getTranslation(), new DecimalFormat("0.00").format(rainfallF));
     }
 
-    @SuppressWarnings("deprecation")
     public static Text getHumidityInfo()
     {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         Biome biome = player.getWorld().getBiome(player.getBlockPos()).value();
         float tempF = ((IBiomeInvoker) (Object) biome).invokeComputeTemperature(player.getBlockPos());
-        float rainfallF = biome.getDownfall();
+        float rainfallF = ((IBiomeDownfallAccess) (Object) biome)._1_20$getDownfall();
         Humidity humidity = Humidity.getHumid(rainfallF, tempF);
         return Text.translatable("info.silveroak.environment.humidity", humidity.getTranslation());
     }

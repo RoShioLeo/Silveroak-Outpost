@@ -7,9 +7,9 @@ import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextHandler;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Rect2i;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -106,13 +106,19 @@ public class ReadOnlyTextBox extends ClickableWidget
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks)
     {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         for (EditableTextBox.Line line : currentPage.lines)
         {
-            this.font.draw(matrixStack, line.lineTextComponent, (float) line.x, (float) line.y, color);
+            drawContext.drawText(this.font, line.lineTextComponent, line.x, line.y, color, false);
         }
+    }
+
+    @Override
+    public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float delta)
+    {
+
     }
 
     @Override
