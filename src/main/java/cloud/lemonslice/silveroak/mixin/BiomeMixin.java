@@ -1,28 +1,22 @@
 package cloud.lemonslice.silveroak.mixin;
 
 
+import cloud.lemonslice.silveroak.common.inter.IBiomeDownfallAccess;
 import net.minecraft.world.biome.Biome;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-/**
- * Author cnlimiter
- * CreateTime 2023/5/29 1:48
- * Name BiomeMixin
- * Description
- */
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Biome.class)
-public class BiomeMixin implements BiomeWeatherAccess{
-    @Unique
-    private float apoli$downfall;
+public class BiomeMixin implements IBiomeDownfallAccess
+{
+    @Final
+    @Shadow
+    private Biome.Weather weather;
 
     @Override
-    public float getDownfall() {
-        return apoli$downfall;
-    }
-
-    @Override
-    public void setDownfall(float downfall) {
-        apoli$downfall = downfall;
+    public float getDownfall()
+    {
+        return weather.downfall();
     }
 }

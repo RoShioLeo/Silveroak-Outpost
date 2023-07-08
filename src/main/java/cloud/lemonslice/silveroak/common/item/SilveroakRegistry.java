@@ -1,7 +1,7 @@
 package cloud.lemonslice.silveroak.common.item;
 
 import cloud.lemonslice.silveroak.SilveroakOutpost;
-import cloud.lemonslice.silveroak.common.ISilveroakEntry;
+import cloud.lemonslice.silveroak.common.inter.ISilveroakEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;

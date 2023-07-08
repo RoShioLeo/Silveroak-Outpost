@@ -26,6 +26,7 @@
       "cloud.lemonslice.silveroak.client.gui.hud.OverlayHandler"
     ]
   },
+  "accessWidener": "silveroak.accesswidener",
   "mixins": [
     "silveroak.mixins.json"
   ],

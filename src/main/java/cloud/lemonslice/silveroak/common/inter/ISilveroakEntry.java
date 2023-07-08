@@ -1,4 +1,4 @@
-package cloud.lemonslice.silveroak.common;
+package cloud.lemonslice.silveroak.common.inter;
 
 import net.minecraft.util.Identifier;
 
