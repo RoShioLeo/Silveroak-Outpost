@@ -5,7 +5,10 @@ import cloud.lemonslice.silveroak.network.TextBoxEditMessage;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.SharedConstants;
@@ -366,7 +369,7 @@ public class EditableTextBox extends AbstractWidget
 
         for (Line line : page.lines)
         {
-            gui.drawString(this.font, line.lineTextComponent, line.x, line.y, color);
+            gui.drawString(this.font, line.lineTextComponent, line.x, line.y, color, false);
         }
 
         this.renderSelection(page.selection);

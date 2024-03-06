@@ -67,7 +67,7 @@ public final class GuiHelper
         button.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
-    public static void renderButton(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY, int z, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
+    public static void renderButton(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY, ResourceLocation texture, Button button, TexturePos normalPos, TexturePos hoveredPos)
     {
         RenderSystem.enableBlend();
 
