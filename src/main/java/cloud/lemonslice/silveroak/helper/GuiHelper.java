@@ -9,6 +9,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.math.Transformation;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -18,13 +19,13 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Optional;
 
 import static com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS;
 
@@ -140,23 +141,22 @@ public final class GuiHelper
         iRenderTypeBuffer.endBatch();
     }
 
-    public static void drawTooltip(Screen gui, GuiGraphics guiGraphics, int mouseX, int mouseY, float deltaTick, int x, int y, int weight, int height, List<FormattedCharSequence> list)
+    public static void drawTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y, int weight, int height, List<Component> list)
     {
         if (x <= mouseX && mouseX <= x + weight && y <= mouseY && mouseY <= y + height)
         {
-            gui.setTooltipForNextRenderPass(list);
-            gui.renderWithTooltip(guiGraphics, mouseX, mouseY, deltaTick);
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, list, Optional.empty(), mouseX, mouseY);
         }
     }
 
-    public static void drawFluidTooltip(Screen gui, GuiGraphics guiGraphics, int mouseX, int mouseY, float deltaTick, int x, int y, int width, int height, Component name, int amount)
+    public static void drawFluidTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y, int width, int height, Component name, int amount)
     {
         if (amount != 0)
         {
-            List<FormattedCharSequence> list = Lists.newArrayList(name.getVisualOrderText());
+            List<Component> list = Lists.newArrayList(name);
             DecimalFormat df = new DecimalFormat("#,###");
-            list.add(Component.literal(df.format(amount) + " mB").withStyle(ChatFormatting.GRAY).getVisualOrderText());
-            drawTooltip(gui, guiGraphics, mouseX, mouseY, deltaTick, x, y, width, height, list);
+            list.add(Component.literal(df.format(amount) + " mB").withStyle(ChatFormatting.GRAY));
+            drawTooltip(guiGraphics, mouseX, mouseY, x, y, width, height, list);
         }
     }
 

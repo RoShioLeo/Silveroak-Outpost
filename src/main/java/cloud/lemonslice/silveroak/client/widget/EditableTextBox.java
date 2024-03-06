@@ -413,7 +413,7 @@ public class EditableTextBox extends AbstractWidget
             }
             else
             {
-                gui.drawString(this.font, "_", point.x, point.y, color);
+                gui.drawString(this.font, "_", point.x, point.y, color, false);
             }
         }
 

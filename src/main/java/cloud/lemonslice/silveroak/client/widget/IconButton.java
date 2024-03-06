@@ -29,15 +29,15 @@ public class IconButton extends Button
     {
         if (this.isHoveredOrFocused())
         {
-            this.renderToolTip(gui, mouseX, mouseY, partialTicks);
+            this.renderToolTip(gui, mouseX, mouseY);
         }
     }
 
-    public void renderToolTip(GuiGraphics gui, int pMouseX, int pMouseY, float partialTicks)
+    public void renderToolTip(GuiGraphics gui, int pMouseX, int pMouseY)
     {
         if (this.onTooltip != null)
         {
-            this.onTooltip.onTooltip(this, gui, pMouseX, pMouseY, partialTicks);
+            this.onTooltip.onTooltip(this, gui, pMouseX, pMouseY);
         }
     }
 
@@ -62,6 +62,6 @@ public class IconButton extends Button
 
     public interface OnTooltip
     {
-        void onTooltip(Button button, GuiGraphics gui, int mouseX, int mouseY, float partialTicks);
+        void onTooltip(Button button, GuiGraphics gui, int mouseX, int mouseY);
     }
 }
