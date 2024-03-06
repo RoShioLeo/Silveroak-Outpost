@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "thermometer",
+  "key": {
+    "#": {
+      "tag": "forge:glass/colorless"
+    },
+    "x": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "###",
+    "# #",
+    "#x#"
+  ],
+  "result": {
+    "item": "silveroakoutpost:thermometer"
+  }
+}

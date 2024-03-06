@@ -1,0 +1,205 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+
+version = "${mod_version}${mod_phase}"
+group = 'cloud.lemonslice.sliveroak'
+archivesBaseName = 'SliveroakOutpost'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+minecraft {
+    mappings channel: "${mappings_channel}", version: "${mappings_version}"
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'info'
+
+            property 'forge.enabledGameTestNamespaces', 'silveroakoutpost'
+
+            mods {
+                silveroakoutpost {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'info'
+
+            property 'forge.enabledGameTestNamespaces', 'silveroakoutpost'
+
+            mods {
+                silveroakoutpost {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'info'
+
+            property 'forge.enabledGameTestNamespaces', 'silveroakoutpost'
+
+            mods {
+                silveroakoutpost {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'info'
+
+            args '--mod', 'silveroakoutpost', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                silveroakoutpost {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    // Put repositories for dependencies here
+    // ForgeGradle automatically adds the Forge maven and Maven Central for you
+
+    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
+    // flatDir {
+    //     dir 'libs'
+    // }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Real mod deobf dependency examples - these get remapped to your current mappings
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
+    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
+    // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
+
+    // Examples using mod jars from ./libs
+    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
+
+    // For more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+}
+
+def version_replaces = [
+        'version': project.version
+]
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+    filesMatching("META-INF/mods.toml") {
+        expand version_replaces
+    }
+}
+
+def info = [
+        "Specification-Title"     : "SliveroakOutpost",
+        "Specification-Vendor"    : "Lemon Slice Studio",
+        "Specification-Version"   : "1",
+        "Implementation-Title"    : project.name,
+        "Implementation-Version"  : "${version}",
+        "Implementation-Vendor"   : "Lemon Slice Studio",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+]
+
+jar {
+    manifest {
+        attributes(info)
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+def reobfFile = file("$buildDir/reobfJar/output.jar")
+def reobfArtifact = artifacts.add('default', reobfFile) {
+    type 'jar'
+    builtBy 'reobfJar'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = "cloud.lemonslice.silveroak"
+            artifactId = "SilveroakOutpost-Forge-${minecraft_version}"
+
+            artifact reobfArtifact
+            pom {
+                name = 'Silveroak Outpost for Minecraft 1.19'
+                description = 'Minecraft mod library.'
+                url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost'
+                licenses {
+                    license {
+                        name = 'BSD-3-Clause'
+                        url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost/blob/1.16/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'RoitoLeo'
+                        name = 'RoitoLeo'
+                    }
+                }
+                issueManagement {
+                    system = 'GitHub Issues'
+                    url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost/issues'
+                }
+                scm {
+                    url = 'https://github.com/lemon-slice-studio/Silveroak-Outpost'
+                    connection = 'scm:git:git://github.com/lemon-slice-studio/Silveroak-Outpost.git'
+                    developerConnection = 'scm:git:git@github.com:lemon-slice-studio/Silveroak-Outpost.git'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "archive"
+            url = "https://maven.lemonslice.cloud/releases"
+            credentials {
+                username = System.env.MAVEN_USERNAME
+                password = System.env.MAVEN_PASSWORD
+            }
+        }
+    }
+}
+
+tasks.withType(PublishToMavenRepository) {
+    onlyIf {
+        System.env.MAVEN_USERNAME && System.env.MAVEN_PASSWORD
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}

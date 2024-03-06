@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "rain_gauge",
+  "key": {
+    "#": {
+      "tag": "forge:glass/colorless"
+    },
+    "*": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "pattern": [
+    "# #",
+    "# #",
+    "#*#"
+  ],
+  "result": {
+    "item": "silveroakoutpost:rain_gauge"
+  }
+}

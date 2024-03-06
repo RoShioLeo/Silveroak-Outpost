@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "hygrometer",
+  "ingredients": [
+    {
+      "item": "silveroakoutpost:thermometer"
+    },
+    {
+      "item": "silveroakoutpost:rain_gauge"
+    }
+  ],
+  "result": {
+    "item": "silveroakoutpost:hygrometer"
+  }
+}
